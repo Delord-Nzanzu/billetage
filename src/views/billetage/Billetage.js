@@ -33,6 +33,7 @@ const Billetage = () => {
   const [selectedValue, setSelectedValue] = useState("Franc");
   const [selectValeurBille, setSelectValeurBille] = useState([]);
   const [billDistribution, setBilleDistribution] = useState([]);
+  const [montainitial, setMontantInitial]=useState(0)
 
   const Validation = useFormik({
     enableReinitialize: false,
@@ -40,9 +41,10 @@ const Billetage = () => {
       montant: "",
     },
     validationSchema: yup.object().shape({
-      montant: yup.string().required("Le champs est obligatoire"),
+      montant: yup.string().required("Le champ est obligatoire"),
     }),
     onSubmit: (e) => {
+        setMontantInitial(e.montant)
       let getmontant = parseFloat(e.montant);
 
       if (isNaN(getmontant) || getmontant <= 0) {
@@ -51,21 +53,36 @@ const Billetage = () => {
       }
 
       let distribution = [];
+      let remaining = getmontant;
 
       // Trier les billets en ordre décroissant
       const sortedBills = selectValeurBille
         .map((e) => Number(e)) // Convertir en nombre
-        .sort((a, b) => b - a); // Trier du plus grand au plus petit
+        .sort((a, b) => b - a);
 
-      sortedBills.forEach((e) => {
-        const count = Math.floor(getmontant / e);
-        if (count > 0) {
-          const totalBille = count * e;
-          distribution.push({ billet: e, nombre: count, total: totalBille });
-          getmontant -= totalBille; // Déduire le montant attribué
+      const billUsage = sortedBills.map((billet) => ({
+        billet,
+        nombre: 0,
+        total: 0,
+      }));
+
+      while (remaining > 0) {
+        let distributed = false;
+
+        for (let i = 0; i < billUsage.length; i++) {
+          const billet = billUsage[i].billet;
+          if (remaining >= billet) {
+            billUsage[i].nombre++;
+            billUsage[i].total += billet;
+            remaining -= billet;
+            distributed = true;
+          }
         }
-      });
 
+        if (!distributed) break; // Si aucun billet ne peut être utilisé, on arrête
+      }
+
+      distribution = billUsage.filter((b) => b.nombre > 0);
       setBilleDistribution(distribution);
     },
   });
@@ -214,6 +231,14 @@ const Billetage = () => {
               onPress={Validation.handleSubmit}
             />
           </View>
+          <Divider
+            style={{
+              width: "100$",
+              marginTop: 20,
+              marginBottom: 10,
+              borderColor: "gray",
+            }}
+          />
           <View>
             <Text
               style={{
@@ -222,7 +247,7 @@ const Billetage = () => {
                 marginTop: 10,
                 marginBottom: 10,
               }}>
-              Resultat
+              Résultat
             </Text>
             {billDistribution.length > 0 ? (
               <View>
@@ -296,6 +321,30 @@ const Billetage = () => {
                     )}
                   </Text>
                 </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    padding: 10,
+                    backgroundColor: "#040332",
+                    // borderBottomLeftRadius: 5,
+                    // borderBottomRightRadius: 5,
+                    borderRadius:5,
+                    marginTop:5
+                  }}>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 2 }}>
+                    Montant restant
+                  </Text>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    -
+                  </Text>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    {montainitial-billDistribution.reduce(
+                      (acc, item) => acc + item.total,
+                      0
+                    )}
+                  </Text>
+                </View>
               </View>
             ) : (
               <Text
@@ -303,6 +352,7 @@ const Billetage = () => {
                   fontStyle: "italic",
                   color: "gray",
                   textAlign: "center",
+                  fontFamily: "monst",
                 }}>
                 Aucune répartition effectuée
               </Text>
