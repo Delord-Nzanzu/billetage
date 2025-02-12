@@ -3,30 +3,38 @@ import React from "react";
 import { Grid } from "react-native-animated-spinkit";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-export default function Boutons({ text, disabled, onPress, iconname }) {
+export default function Boutons({
+  text,
+  disabled,
+  onPress,
+  iconname,
+  borderColor,
+  backgroundColor,
+  colorText,
+  colorIcon,
+}) {
   return (
     <View>
       <TouchableOpacity
         onPress={onPress}
         disabled={disabled}
         style={{
+          backgroundColor: backgroundColor,
           alignItems: "center",
           marginTop: 10,
-          borderColor: "red",
-          borderWidth: 1,
+          borderColor: borderColor,
+          borderWidth: 2,
           padding: 10,
           borderRadius: 10,
           height: 50,
           flexDirection: "row",
           justifyContent: "center",
-        }}
-      >
+        }}>
         {disabled ? (
           <View
             style={{
               marginRight: 10,
-            }}
-          >
+            }}>
             <Grid size={25} color={"#040332"} />
           </View>
         ) : (
@@ -35,12 +43,11 @@ export default function Boutons({ text, disabled, onPress, iconname }) {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-            }}
-          >
+            }}>
             <AntDesign
               name={iconname}
-              color={"red"}
-              size={10}
+              color={colorIcon}
+              size={20}
               style={{
                 borderRadius: 0,
                 marginRight: 10,
@@ -49,9 +56,9 @@ export default function Boutons({ text, disabled, onPress, iconname }) {
             <Text
               style={{
                 fontFamily: "monst",
-                fontSize: 16,
-              }}
-            >
+                fontSize: 18,
+                color: colorText,
+              }}>
               {text}
             </Text>
           </View>
