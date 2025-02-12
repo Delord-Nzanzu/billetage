@@ -353,7 +353,7 @@ const Billetage = () => {
                   fontStyle: "italic",
                   color: "gray",
                   textAlign: "center",
-                  fontFamily: "monst",
+                  fontFamily: "monst-i",
                 }}>
                 Aucune répartition effectuée
               </Text>

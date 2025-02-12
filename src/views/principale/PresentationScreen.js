@@ -16,7 +16,7 @@ const PresentationScreen = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slides = [
     {
-      title: "Bienvenue sur l'App de Gestion & Billetage",
+      title: "Bienvenue sur l'App. de Gestion des dépenses & Billetages",
       image: require("../../../assets/acceuill.png"),
       description:
         "Cette application vous permet de gérer vos dépenses tout en facilitant la répartition d'un montant donné en fonction des billets disponibles.",
@@ -35,6 +35,7 @@ const PresentationScreen = (props) => {
     },
     {
       title: "Démarrez maintenant !",
+      image: require("../../../assets/logins.png"),
       description:
         "Appuyez sur le bouton ci-dessous pour commencer à utiliser l'application.",
       button: (
@@ -80,7 +81,9 @@ const PresentationScreen = (props) => {
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
             {item?.button ? (
-              <View style={{ width: "100%" }}>{item.button}</View>
+              <View style={{ width: "100%", marginBottom: 50 }}>
+                {item.button}
+              </View>
             ) : (
               <Text></Text>
             )}
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
   slide: {
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:-20,
+    marginTop: -20,
     padding: 20,
     width: width * 1,
     alignItems: "center",

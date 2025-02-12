@@ -39,7 +39,7 @@ export default function Principale(props) {
                 fontFamily: "monst",
                 fontSize: 25,
               }}>
-              Gestion de dépense
+              Gestion de dépense & Billetages
             </Text>
             <Text
               style={{
@@ -48,8 +48,9 @@ export default function Principale(props) {
                 fontSize: 18,
                 marginTop: 1,
               }}>
-              Entrez un montant et obtenez automatiquement la répartition
-              optimale en billets.
+              Cette application vous permet de gérer vos dépenses tout en
+              facilitant la répartition d'un montant donné en fonction des
+              billets disponibles.
             </Text>
           </View>
         </View>
@@ -121,7 +122,7 @@ export default function Principale(props) {
               justifyContent: "center",
               alignItems: "center",
             }}>
-            <AntDesing name="attach-money" color={"#fff"} size={35} />
+            <AntDesing name="calendar-today" color={"#fff"} size={35} />
             <Text
               style={{
                 fontFamily: "monst",

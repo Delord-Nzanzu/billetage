@@ -9,6 +9,7 @@ export const LoaderScreen = (props) => {
   const [loaded] = useFonts({
     monst: require("../../../assets/fonts/static/Montserrat-Bold.ttf"),
     "monst-r": require("../../../assets/fonts/static/Montserrat-Regular.ttf"),
+    "monst-i": require("../../../assets/fonts/static/Montserrat-Italic.ttf"),
   });
 
   React.useEffect(() => {
@@ -43,10 +44,10 @@ export const LoaderScreen = (props) => {
           }}>
           <Image
             style={[
-              { flex: 0.6, justifyContent: "center" },
+              { flex: 0.7, justifyContent: "center" },
               { width, resizeMode: "contain" },
             ]}
-            source={require("../../../assets/dollar.png")}
+            source={require("../../../assets/log.png")}
           />
         </View>
         <View style={{ flexDirection: "row" }}>
