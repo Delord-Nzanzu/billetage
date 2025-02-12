@@ -149,6 +149,7 @@ const Billetage = () => {
             iconname={"attach-money"}
             iconcolor={"green"}
             placeholder={"ex: 10; 100; 100000"}
+            keyboardType={"numeric"}
             // id={"montant"}
             value={Validation.values.montant}
             onChange={Validation.handleChange("montant")}
@@ -164,7 +165,7 @@ const Billetage = () => {
           />
           <Divider
             style={{
-              width: "100$",
+              width: "100%",
               marginTop: 20,
               marginBottom: 10,
               borderColor: "gray",
@@ -233,7 +234,7 @@ const Billetage = () => {
           </View>
           <Divider
             style={{
-              width: "100$",
+              width: "10%",
               marginTop: 20,
               marginBottom: 10,
               borderColor: "gray",

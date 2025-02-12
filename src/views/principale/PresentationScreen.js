@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 // import LinearGradient from "react-native-linear-gradient";
@@ -15,14 +16,22 @@ const PresentationScreen = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slides = [
     {
-      title: "Bienvenue sur l'App de Billetage",
+      title: "Bienvenue sur l'App de Gestion & Billetage",
+      image: require("../../../assets/acceuill.png"),
       description:
-        "Cette application vous permet de facilement répartir un montant donné en fonction des billets que vous possédez.",
+        "Cette application vous permet de gérer vos dépenses tout en facilitant la répartition d'un montant donné en fonction des billets disponibles.",
     },
     {
       title: "Comment ça marche ?",
+      image: require("../../../assets/comment2.png"),
       description:
-        "Vous entrez un montant, choisissez votre devise, puis l'application calcule la répartition des billets.",
+        "Saisissez un montant, sélectionnez votre devise et laissez l'application calculer la répartition optimale des billets tout en vous aidant à mieux gérer vos finances.",
+    },
+    {
+      title: "Optimisez vos dépenses",
+      image: require("../../../assets/comment.png"),
+      description:
+        "Gardez le contrôle sur votre budget en suivant vos entrées et sorties d'argent avec précision.",
     },
     {
       title: "Démarrez maintenant !",
@@ -63,6 +72,11 @@ const PresentationScreen = (props) => {
         onSnapToItem={(index) => setCurrentIndex(index)}
         renderItem={({ item }) => (
           <View style={styles.slide}>
+            <Image
+              source={item.image}
+              alt="image"
+              style={{ width: 300, height: 300, resizeMode: "contain" }}
+            />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
             {item?.button ? (
@@ -90,6 +104,7 @@ const styles = StyleSheet.create({
   slide: {
     backgroundColor: "#fff",
     borderRadius: 10,
+    marginTop:-20,
     padding: 20,
     width: width * 1,
     alignItems: "center",
