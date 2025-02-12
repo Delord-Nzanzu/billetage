@@ -1,7 +1,7 @@
 import { View, TextInput, Text } from "react-native";
 import React from "react";
 import { Divider } from "react-native-elements";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import AntDesign from "react-native-vector-icons/MaterialIcons";
 
 const TextInputs = ({
   id,
