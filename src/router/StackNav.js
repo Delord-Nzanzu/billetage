@@ -11,7 +11,7 @@ export default function StackNav() {
       initialRouteName="LoaderScreen"
       screenOptions={{
         headerShown: false,
-        title: "Banque du sang",
+        title: "Billetage",
       }}>
       <Stack.Screen name="LoaderScreen" component={LoaderScreen} />
       <Stack.Screen name="Principale" component={Principale} />
