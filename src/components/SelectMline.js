@@ -18,6 +18,7 @@ const SelectMultiline = ({
       labelStyles={{
         fontFamily:"monst-r"
       }}
+      searchPlaceholder="d"
     />
   );
 };

@@ -6,6 +6,8 @@ import { Divider } from "react-native-elements";
 import { CheckBox } from "react-native-elements";
 import SelectMultiline from "../../components/SelectMline";
 import Boutons from "../../components/Buttons";
+import * as yup from "yup";
+import { useFormik } from "formik";
 
 const dataDollard = [
   { key: 100, value: 100 },
@@ -30,6 +32,44 @@ const dataFranc = [
 const Billetage = () => {
   const [selectedValue, setSelectedValue] = useState("Franc");
   const [selectValeurBille, setSelectValeurBille] = useState([]);
+  const [billDistribution, setBilleDistribution] = useState([]);
+
+  const Validation = useFormik({
+    enableReinitialize: false,
+    initialValues: {
+      montant: "",
+    },
+    validationSchema: yup.object().shape({
+      montant: yup.string().required("Le champs est obligatoire"),
+    }),
+    onSubmit: (e) => {
+      let getmontant = parseFloat(e.montant);
+
+      if (isNaN(getmontant) || getmontant <= 0) {
+        alert("Veuillez entrer un montant valide");
+        return;
+      }
+
+      let distribution = [];
+
+      // Trier les billets en ordre décroissant
+      const sortedBills = selectValeurBille
+        .map((e) => Number(e)) // Convertir en nombre
+        .sort((a, b) => b - a); // Trier du plus grand au plus petit
+
+      sortedBills.forEach((e) => {
+        const count = Math.floor(getmontant / e);
+        if (count > 0) {
+          const totalBille = count * e;
+          distribution.push({ billet: e, nombre: count, total: totalBille });
+          getmontant -= totalBille; // Déduire le montant attribué
+        }
+      });
+
+      setBilleDistribution(distribution);
+    },
+  });
+
   return (
     <View
       style={{
@@ -92,6 +132,18 @@ const Billetage = () => {
             iconname={"attach-money"}
             iconcolor={"green"}
             placeholder={"ex: 10; 100; 100000"}
+            // id={"montant"}
+            value={Validation.values.montant}
+            onChange={Validation.handleChange("montant")}
+            onBlue={Validation.handleBlur("montant")}
+            error={
+              Validation.errors.montant && Validation.touched.montant && true
+            }
+            texterror={
+              Validation.errors.montant &&
+              Validation.touched.montant &&
+              Validation.errors.montant
+            }
           />
           <Divider
             style={{
@@ -159,7 +211,32 @@ const Billetage = () => {
               colorText={"#FFF"}
               iconname={"edit"}
               colorIcon={"#fff"}
+              onPress={Validation.handleSubmit}
             />
+          </View>
+          <View>
+            <Text>Bille Distribution</Text>
+            {billDistribution.length > 0 ? (
+              billDistribution.map((item, index) => (
+                <View
+                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    padding: 10,
+                    borderBottomWidth: 1,
+                  }}>
+                  <Text>
+                    {item.billet} x {item.nombre}
+                  </Text>
+                  <Text>= {item.total}</Text>
+                </View>
+              ))
+            ) : (
+              <Text style={{ fontStyle: "italic", color: "gray" }}>
+                Aucune répartition effectuée
+              </Text>
+            )}
           </View>
         </View>
       </ScrollView>
