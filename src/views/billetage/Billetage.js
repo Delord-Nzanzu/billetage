@@ -215,25 +215,95 @@ const Billetage = () => {
             />
           </View>
           <View>
-            <Text>Bille Distribution</Text>
+            <Text
+              style={{
+                fontFamily: "monst",
+                fontSize: 18,
+                marginTop: 10,
+                marginBottom: 10,
+              }}>
+              Resultat
+            </Text>
             {billDistribution.length > 0 ? (
-              billDistribution.map((item, index) => (
+              <View>
+                {/* En-tête */}
                 <View
-                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    backgroundColor: "#040332",
+                    padding: 10,
+                    borderTopLeftRadius: 5,
+                    borderTopRightRadius: 5,
+                  }}>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    Billetage
+                  </Text>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    Nombre
+                  </Text>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    Total
+                  </Text>
+                </View>
+
+                {/* Corps du tableau */}
+                {billDistribution.map((item, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      padding: 10,
+                      borderBottomWidth: 1,
+                      borderColor: "gray",
+                    }}>
+                    <Text style={{ flex: 1, textAlign: "center" }}>
+                      {item.billet}
+                    </Text>
+                    <Text style={{ flex: 1, textAlign: "center" }}>
+                      {item.nombre}
+                    </Text>
+                    <Text style={{ flex: 1, textAlign: "center" }}>
+                      {item.total}
+                    </Text>
+                  </View>
+                ))}
+
+                {/* Affichage du Total général */}
+                <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
                     padding: 10,
-                    borderBottomWidth: 1,
+                    backgroundColor: "#040332",
+                    borderBottomLeftRadius: 5,
+                    borderBottomRightRadius: 5,
                   }}>
-                  <Text>
-                    {item.billet} x {item.nombre}
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 2 }}>
+                    Total Général
                   </Text>
-                  <Text>= {item.total}</Text>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    {billDistribution.reduce(
+                      (acc, item) => acc + item.count,
+                      0
+                    )}
+                  </Text>
+                  <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
+                    {billDistribution.reduce(
+                      (acc, item) => acc + item.total,
+                      0
+                    )}
+                  </Text>
                 </View>
-              ))
+              </View>
             ) : (
-              <Text style={{ fontStyle: "italic", color: "gray" }}>
+              <Text
+                style={{
+                  fontStyle: "italic",
+                  color: "gray",
+                  textAlign: "center",
+                }}>
                 Aucune répartition effectuée
               </Text>
             )}
