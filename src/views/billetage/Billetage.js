@@ -52,6 +52,11 @@ const Billetage = () => {
         return;
       }
 
+      if(selectValeurBille.length===0){
+        alert("Veuillez entrer le billet");
+        return;
+      }
+
       let distribution = [];
       let remaining = getmontant;
 

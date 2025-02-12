@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 
@@ -18,7 +17,6 @@ const SelectMultiline = ({
       labelStyles={{
         fontFamily:"monst-r"
       }}
-      searchPlaceholder="d"
     />
   );
 };
