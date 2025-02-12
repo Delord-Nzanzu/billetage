@@ -285,7 +285,7 @@ const Billetage = () => {
                   </Text>
                   <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
                     {billDistribution.reduce(
-                      (acc, item) => acc + item.count,
+                      (acc, item) => acc + item.nombre,
                       0
                     )}
                   </Text>
