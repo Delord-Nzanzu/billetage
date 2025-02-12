@@ -14,7 +14,7 @@ export const LoaderScreen = (props) => {
   React.useEffect(() => {
     if (loaded) {
       setTimeout(() => {
-        props.navigation.navigate("Principale");
+        props.navigation.navigate("PresentationScreen");
       }, 5000);
     }
   }, [loaded]);

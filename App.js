@@ -1,18 +1,14 @@
+import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-// import StackNav from "./src/router/StackNav";
-import PresentationScreen from "./src/views/principale/PresentationScreen";
-import 'react-native-gesture-handler';
+import StackNav from "./src/router/StackNav";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar translucent={true} backgroundColor="#040332" style="light" />
-      <NavigationContainer>
-        <PresentationScreen />
-      </NavigationContainer>
-    </View>
+    <NavigationContainer>
+      <StackNav />
+    </NavigationContainer>
   );
 }
 

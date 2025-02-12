@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 
-export default function Principale() {
+export default function Principale(props) {
   return (
     <View
       style={{
@@ -12,7 +12,9 @@ export default function Principale() {
         alignItems: "center",
       }}>
       <StatusBar translucent={true} backgroundColor="#040332" style="light" />
-      <Text>Principale</Text>
+      <TouchableOpacity onPress={()=>props.navigation.navigate("Billetage")} >
+      <Text>Billetage</Text>
+      </TouchableOpacity>
     </View>
   );
 }

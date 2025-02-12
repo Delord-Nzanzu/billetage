@@ -7,48 +7,53 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+// import LinearGradient from "react-native-linear-gradient";
 
 const { width } = Dimensions.get("window");
 
-const slides = [
-  {
-    title: "Bienvenue sur l'App de Billetage",
-    description:
-      "Cette application vous permet de facilement répartir un montant donné en fonction des billets que vous possédez.",
-  },
-  {
-    title: "Comment ça marche ?",
-    description:
-      "Vous entrez un montant, choisissez votre devise, puis l'application calcule la répartition des billets.",
-  },
-  {
-    title: "Démarrez maintenant !",
-    description:
-      "Appuyez sur le bouton ci-dessous pour commencer à utiliser l'application.",
-    button: (
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#040332",
-          padding: 10,
-          margin: 10,
-          borderRadius: 10,
-        }}>
-        <Text
-          style={{
-            color: "#fff",
-          }}>
-          Commencer
-        </Text>
-      </TouchableOpacity>
-    ),
-  },
-];
-
-const PresentationScreen = () => {
+const PresentationScreen = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const slides = [
+    {
+      title: "Bienvenue sur l'App de Billetage",
+      description:
+        "Cette application vous permet de facilement répartir un montant donné en fonction des billets que vous possédez.",
+    },
+    {
+      title: "Comment ça marche ?",
+      description:
+        "Vous entrez un montant, choisissez votre devise, puis l'application calcule la répartition des billets.",
+    },
+    {
+      title: "Démarrez maintenant !",
+      description:
+        "Appuyez sur le bouton ci-dessous pour commencer à utiliser l'application.",
+      button: (
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("Principale")}
+          style={{
+            backgroundColor: "#040332",
+            padding: 15,
+            margin: 10,
+            borderRadius: 10,
+          }}>
+          <Text
+            style={{
+              color: "#fff",
+              textAlign: "center",
+              fontFamily: "monst",
+            }}>
+            Commencer
+          </Text>
+        </TouchableOpacity>
+      ),
+    },
+  ];
 
   return (
-    <View style={styles.container}>
+    <View
+      // colors={["#4c669f", "#3b5998", "#192f6a"]}
+      style={styles.container}>
       <Carousel
         loop={false}
         width={width}
@@ -60,7 +65,11 @@ const PresentationScreen = () => {
           <View style={styles.slide}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
-            {item?.button ? <View>{item.button}</View> : <Text></Text>}
+            {item?.button ? (
+              <View style={{ width: "100%" }}>{item.button}</View>
+            ) : (
+              <Text></Text>
+            )}
           </View>
         )}
       />
@@ -76,6 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   slide: {
     backgroundColor: "#fff",
@@ -91,18 +101,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "monst",
   },
   description: {
     fontSize: 16,
     textAlign: "center",
     marginTop: 10,
+    fontFamily: "monst-r",
   },
   pagination: {
     marginTop: 20,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "monst",
+    color: "#040332",
   },
 });
 
