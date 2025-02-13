@@ -19,7 +19,7 @@ const Header = ({ iconenameMaterialUi, title, subTite }) => {
           marginTop: 10,
           marginLeft: -15,
         }}>
-        <View style={{ marginRight: 1, marginLeft: -10 }}>
+        <View style={{ marginRight: 10, marginLeft: -5 }}>
           <AntDesing name={iconenameMaterialUi} color={"#fff"} size={50} />
         </View>
         <View>
