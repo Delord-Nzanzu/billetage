@@ -6,8 +6,10 @@ import Header from "../../components/Header";
 import { Divider } from "react-native-elements";
 import { Data } from "../../data/Data";
 import ChartGraphic from "../../components/ChartGraphic";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeDepense = () => {
+  const nav=useNavigation()
   return (
     <View
       style={{
@@ -50,6 +52,7 @@ const HomeDepense = () => {
           {Data.map((e, key) => {
             return (
               <TouchableOpacity
+              onPress={()=>nav.navigate(e.link)}
                 key={key}
                 style={{
                   padding: 10,

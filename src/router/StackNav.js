@@ -5,6 +5,7 @@ import Principale from "../views/principale/Principale";
 import PresentationScreen from "../views/principale/PresentationScreen";
 import Billetage from "../views/billetage/Billetage";
 import HomeDepense from "../views/depense/HomeDepense";
+import Categorie from "../views/categorie/Categorie";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function StackNav() {
       <Stack.Screen name="Principale" component={Principale} />
       <Stack.Screen name="Billetage" component={Billetage} />
       <Stack.Screen name="HomeDepense" component={HomeDepense} />
+      <Stack.Screen name="Categorie" component={Categorie} />
     </Stack.Navigator>
   );
 }

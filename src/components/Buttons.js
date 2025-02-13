@@ -12,6 +12,7 @@ export default function Boutons({
   backgroundColor,
   colorText,
   colorIcon,
+  width,
 }) {
   return (
     <View>
@@ -19,6 +20,7 @@ export default function Boutons({
         onPress={onPress}
         disabled={disabled}
         style={{
+          width: width ? width : "auto",
           backgroundColor: backgroundColor,
           alignItems: "center",
           marginTop: 10,
