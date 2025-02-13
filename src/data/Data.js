@@ -8,7 +8,6 @@ export const Data = [
   },
   {
     title: "Budget",
-    link: "Categorie",
     subTitle:
       "Configure le budget pour chaque mois, cela vous permettra de controle les dépenses",
     icon: "attach-money",
@@ -18,9 +17,8 @@ export const Data = [
   {
     title: "Dépense",
     subTitle: "Entre le depense ",
-    link: "Categorie",
+    link: "Depense",
     icon: "attach-money",
-    link: "",
     colorContur: "#040332",
   },
 ];

@@ -9,6 +9,8 @@ import Categorie from "../views/categorie/Categorie";
 import NouveauCat from "../views/categorie/NouveauCat";
 import Budget from "../views/budget/Budget";
 import NouveauBudget from "../views/budget/NouveauBudget";
+import Depense from "../views/depense/Depense";
+import NouveauDepense from "../views/depense/NouveauDepense";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,9 +31,8 @@ export default function StackNav() {
       <Stack.Screen name="NouveauCat" component={NouveauCat} />
       <Stack.Screen name="Budget" component={Budget} />
       <Stack.Screen name="NouveauBudget" component={NouveauBudget} />
-
-
-
+      <Stack.Screen name="Depense" component={Depense} />
+      <Stack.Screen name="NouveauDepense" component={NouveauDepense} />
     </Stack.Navigator>
   );
 }
