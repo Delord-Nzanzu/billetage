@@ -121,7 +121,7 @@ const HomeDepense = () => {
                 marginLeft: 10,
                 marginBottom: 10,
               }}>
-              Les enregistrements
+              Evolution
             </Text>
             <View
               style={{
@@ -132,7 +132,7 @@ const HomeDepense = () => {
               <View
                 style={{
                   elevation: 2,
-                  width: "31%",
+                  minWidth: "31%",
                   backgroundColor: "blue",
                   padding: 20,
                   borderRadius: 10,
@@ -160,7 +160,7 @@ const HomeDepense = () => {
               <View
                 style={{
                   elevation: 2,
-                  width: "31%",
+                  minWidth: "31%",
                   backgroundColor: "#2a2670",
                   padding: 20,
                   borderRadius: 10,
@@ -189,7 +189,7 @@ const HomeDepense = () => {
               <View
                 style={{
                   elevation: 2,
-                  width: "31%",
+                  minWidth: "31%",
                   backgroundColor: "#040332",
                   padding: 20,
                   borderRadius: 10,

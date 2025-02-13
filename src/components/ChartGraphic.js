@@ -20,7 +20,7 @@ const ChartGraphic = () => {
         style={{
           fontFamily: "monst",
           fontSize: 18,
-          marginLeft: 20,
+          marginLeft: 30,
         }}>
         Dépense Mensuel
       </Text>
