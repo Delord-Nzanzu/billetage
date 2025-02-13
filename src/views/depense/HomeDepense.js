@@ -5,6 +5,7 @@ import AntDesing from "react-native-vector-icons/MaterialIcons";
 import Header from "../../components/Header";
 import { Divider } from "react-native-elements";
 import { Data } from "../../data/Data";
+import ChartGraphic from "../../components/ChartGraphic";
 
 const HomeDepense = () => {
   return (
@@ -113,11 +114,20 @@ const HomeDepense = () => {
             }}
           />
           <View>
+            <Text
+              style={{
+                fontFamily: "monst",
+                fontSize: 18,
+                marginLeft: 10,
+                marginBottom: 10,
+              }}>
+              Les enregistrements
+            </Text>
             <View
               style={{
                 flexDirection: "row",
-                justifyContent:"center",
-                alignItems:"center"
+                justifyContent: "center",
+                alignItems: "center",
               }}>
               <View
                 style={{
@@ -206,6 +216,12 @@ const HomeDepense = () => {
                 </Text>
               </View>
             </View>
+          </View>
+          <View
+            style={{
+              marginLeft: -20,
+            }}>
+            <ChartGraphic />
           </View>
         </View>
       </ScrollView>
