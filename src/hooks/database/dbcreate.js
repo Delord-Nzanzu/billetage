@@ -1,14 +1,13 @@
 import * as SQLite from "expo-sqlite";
 import { useNavigation } from "@react-navigation/native";
 
-async function openDB() {
-  const db = await SQLite.openDatabaseAsync("dbdepenses.db");
+export async function openDB() {
+  const db = await SQLite.openDatabaseAsync("dbdepense.db");
   return db;
 }
 
 export default function dbcreate() {
-  //creation de route
-  const nav = useNavigation();
+    const nav = useNavigation();
 
   const initialisationBD = async () => {
     const db = await openDB();

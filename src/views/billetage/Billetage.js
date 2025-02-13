@@ -8,6 +8,7 @@ import SelectMultiline from "../../components/SelectMline";
 import Boutons from "../../components/Buttons";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import Header from "../../components/Header";
 
 const dataDollard = [
   { key: 100, value: 100 },
@@ -33,7 +34,7 @@ const Billetage = () => {
   const [selectedValue, setSelectedValue] = useState("Franc");
   const [selectValeurBille, setSelectValeurBille] = useState([]);
   const [billDistribution, setBilleDistribution] = useState([]);
-  const [montainitial, setMontantInitial]=useState(0)
+  const [montainitial, setMontantInitial] = useState(0);
 
   const Validation = useFormik({
     enableReinitialize: false,
@@ -44,7 +45,7 @@ const Billetage = () => {
       montant: yup.string().required("Le champ est obligatoire"),
     }),
     onSubmit: (e) => {
-        setMontantInitial(e.montant)
+      setMontantInitial(e.montant);
       let getmontant = parseFloat(e.montant);
 
       if (isNaN(getmontant) || getmontant <= 0) {
@@ -52,7 +53,7 @@ const Billetage = () => {
         return;
       }
 
-      if(selectValeurBille.length===0){
+      if (selectValeurBille.length === 0) {
         alert("Veuillez entrer le billet");
         return;
       }
@@ -97,46 +98,14 @@ const Billetage = () => {
       style={{
         flex: 1,
       }}>
-      <View
-        style={{
-          height: "20%",
-          backgroundColor: "#040332",
-          justifyContent: "center",
-          padding: 20,
-          borderBottomEndRadius: 30,
-          //   borderBottomLeftRadius:10
-        }}>
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 10,
-            marginLeft: -15,
-          }}>
-          <View style={{ marginRight: -10, marginLeft: -10 }}>
-            <AntDesing name="attach-money" color={"#fff"} size={50} />
-          </View>
-          <View>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "monst",
-                fontSize: 25,
-              }}>
-              Billetage
-            </Text>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "monst-r",
-                fontSize: 18,
-                marginTop: 1,
-              }}>
-              Entrez un montant et obtenez automatiquement la répartition
-              optimale en billets.
-            </Text>
-          </View>
-        </View>
-      </View>
+      <Header
+        iconenameMaterialUi={"attach-money"}
+        title={"Billetage"}
+        subTite={
+          " Entrez un montant et obtenez automatiquement la répartition optimale en billets."
+        }
+      />
+
       <ScrollView>
         <View
           style={{
@@ -335,8 +304,8 @@ const Billetage = () => {
                     backgroundColor: "#040332",
                     // borderBottomLeftRadius: 5,
                     // borderBottomRightRadius: 5,
-                    borderRadius:5,
-                    marginTop:5
+                    borderRadius: 5,
+                    marginTop: 5,
                   }}>
                   <Text style={{ color: "white", fontWeight: "bold", flex: 2 }}>
                     Montant restant
@@ -345,10 +314,11 @@ const Billetage = () => {
                     -
                   </Text>
                   <Text style={{ color: "white", fontWeight: "bold", flex: 1 }}>
-                    {montainitial-billDistribution.reduce(
-                      (acc, item) => acc + item.total,
-                      0
-                    )}
+                    {montainitial -
+                      billDistribution.reduce(
+                        (acc, item) => acc + item.total,
+                        0
+                      )}
                   </Text>
                 </View>
               </View>

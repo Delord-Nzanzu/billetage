@@ -3,6 +3,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import AntDesing from "react-native-vector-icons/MaterialIcons";
 import { Divider } from "react-native-elements";
+import Header from "../../components/Header";
 
 export default function Principale(props) {
   return (
@@ -14,47 +15,14 @@ export default function Principale(props) {
         // alignItems: "center",
       }}>
       <StatusBar translucent={true} backgroundColor="#040332" style="light" />
-      <View
-        style={{
-          height: "20%",
-          backgroundColor: "#040332",
-          justifyContent: "center",
-          padding: 20,
-          borderBottomEndRadius: 30,
-          //   borderBottomLeftRadius:10
-        }}>
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 10,
-            marginLeft: -15,
-          }}>
-          <View style={{ marginRight: -10, marginLeft: -10 }}>
-            <AntDesing name="attach-money" color={"#fff"} size={50} />
-          </View>
-          <View>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "monst",
-                fontSize: 25,
-              }}>
-              Gestion de dépense & Billetages
-            </Text>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "monst-r",
-                fontSize: 18,
-                marginTop: 1,
-              }}>
-              Cette application vous permet de gérer vos dépenses tout en
-              facilitant la répartition d'un montant donné en fonction des
-              billets disponibles.
-            </Text>
-          </View>
-        </View>
-      </View>
+      <Header
+        iconenameMaterialUi={"attach-money"}
+        title={"Gestion de dépense & Billetages"}
+        subTite={
+          "Cette application vous permet de gérer vos dépenses tout en facilitant la répartition d'un montant donné en fonction des billets disponibles."
+        }
+      />
+
       <View
         style={{
           margin: 20,
@@ -111,7 +79,7 @@ export default function Principale(props) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => alert("cette service n'est pas encore disponible")}
+            onPress={() => props.navigation.navigate("HomeDepense")}
             style={{
               width: "48%",
               elevation: 2,
