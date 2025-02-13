@@ -103,10 +103,11 @@ export default function Principale(props) {
             <Text
               style={{
                 fontFamily: "monst",
-                fontSize: 20,
+                fontSize: 16,
                 color: "#fff",
+                textAlign: "center",
               }}>
-              Billetage
+              Fait le billetage pour le paiement
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -126,10 +127,11 @@ export default function Principale(props) {
             <Text
               style={{
                 fontFamily: "monst",
-                fontSize: 20,
+                fontSize: 16,
+                textAlign: "center",
                 color: "#fff",
               }}>
-              Dépense
+              Gestion de dépense
             </Text>
           </TouchableOpacity>
         </View>

@@ -3,9 +3,12 @@ import * as React from "react";
 import { useFonts } from "expo-font";
 import { Grid, Flow } from "react-native-animated-spinkit";
 import { StatusBar } from "expo-status-bar";
+import dbcreate from "../../hooks/database/dbcreate";
 
-export const LoaderScreen = (props) => {
+export const LoaderScreen = () => {
   const { width } = useWindowDimensions();
+  const { initialisationBD } = dbcreate();
+
   const [loaded] = useFonts({
     monst: require("../../../assets/fonts/static/Montserrat-Bold.ttf"),
     "monst-r": require("../../../assets/fonts/static/Montserrat-Regular.ttf"),
@@ -14,8 +17,9 @@ export const LoaderScreen = (props) => {
 
   React.useEffect(() => {
     if (loaded) {
-      setTimeout(() => {
-        props.navigation.navigate("PresentationScreen");
+      setTimeout(async () => {
+        await initialisationBD();
+        // props.navigation.navigate("PresentationScreen");
       }, 5000);
     }
   }, [loaded]);
@@ -63,7 +67,7 @@ export const LoaderScreen = (props) => {
           <Flow
             style={{
               marginTop: 10,
-              marginLeft:10
+              marginLeft: 10,
             }}
             size={20}
             color={"#040332"}
