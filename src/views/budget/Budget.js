@@ -5,7 +5,7 @@ import Boutons from "../../components/Buttons";
 import { Divider } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
-const Categorie = () => {
+const Budget = () => {
   const nav = useNavigation();
   return (
     <View
@@ -14,9 +14,9 @@ const Categorie = () => {
         backgroundColor: "#fff",
       }}>
       <Header
-        iconenameMaterialUi={"file-present"}
-        title={"Catégorie"}
-        subTite={"Ajouter les catégories"}
+        iconenameMaterialUi={"attach-money"}
+        title={"Budget"}
+        subTite={"Ajouter les Budgets"}
       />
       <View
         style={{
@@ -31,7 +31,7 @@ const Categorie = () => {
           iconname={"arrowright"}
           colorIcon={"#fff"}
           width={"30%"}
-          onPress={()=>nav.navigate("NouveauCat")}
+          onPress={() => nav.navigate("NouveauBudget")}
         />
       </View>
       <View
@@ -44,7 +44,7 @@ const Categorie = () => {
             fontFamily: "monst",
             fontSize: 18,
           }}>
-          Listes de catégorie
+          Listes de budget
         </Text>
         <Divider
           style={{
@@ -59,4 +59,4 @@ const Categorie = () => {
   );
 };
 
-export default Categorie;
+export default Budget;

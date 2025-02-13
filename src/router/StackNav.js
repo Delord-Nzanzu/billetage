@@ -6,6 +6,9 @@ import PresentationScreen from "../views/principale/PresentationScreen";
 import Billetage from "../views/billetage/Billetage";
 import HomeDepense from "../views/depense/HomeDepense";
 import Categorie from "../views/categorie/Categorie";
+import NouveauCat from "../views/categorie/NouveauCat";
+import Budget from "../views/budget/Budget";
+import NouveauBudget from "../views/budget/NouveauBudget";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +26,12 @@ export default function StackNav() {
       <Stack.Screen name="Billetage" component={Billetage} />
       <Stack.Screen name="HomeDepense" component={HomeDepense} />
       <Stack.Screen name="Categorie" component={Categorie} />
+      <Stack.Screen name="NouveauCat" component={NouveauCat} />
+      <Stack.Screen name="Budget" component={Budget} />
+      <Stack.Screen name="NouveauBudget" component={NouveauBudget} />
+
+
+
     </Stack.Navigator>
   );
 }
