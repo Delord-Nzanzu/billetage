@@ -5,7 +5,7 @@ import { CheckBox, Divider } from "react-native-elements";
 import Boutons from "../../components/Buttons";
 
 const NouveauDepense = () => {
-     const [selectedValue, setSelectedValue] = useState("Franc");
+  const [selectedValue, setSelectedValue] = useState("Franc");
   return (
     <View
       style={{
@@ -59,10 +59,11 @@ const NouveauDepense = () => {
           //   Validation.errors.montant
           // }
         />
-        <View style={{
-            marginTop:10,
-            marginLeft:-8
-        }} >
+        <View
+          style={{
+            marginTop: 10,
+            marginLeft: -8,
+          }}>
           <View
             style={{
               flexDirection: "row",
@@ -86,6 +87,27 @@ const NouveauDepense = () => {
               />
             </View>
           </View>
+        </View>
+        <View>
+          <TextInputs
+            label={"Motif de la Dépense"}
+            iconname={"file-present"}
+            iconcolor={"green"}
+            placeholder={"ex: Achat des unites"}
+            //   keyboardType={"numeric"}
+            // // id={"montant"}
+            // value={Validation.values.montant}
+            // onChange={Validation.handleChange("montant")}
+            // onBlue={Validation.handleBlur("montant")}
+            // error={
+            //   Validation.errors.montant && Validation.touched.montant && true
+            // }
+            // texterror={
+            //   Validation.errors.montant &&
+            //   Validation.touched.montant &&
+            //   Validation.errors.montant
+            // }
+          />
         </View>
         <Boutons
           text={"Enregistrer"}

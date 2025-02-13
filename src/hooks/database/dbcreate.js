@@ -17,6 +17,7 @@ export default function dbcreate() {
       CREATE TABLE IF NOT EXISTS Budget (
         id_budget INTEGER PRIMARY KEY AUTOINCREMENT,
         montant_initial REAL NOT NULL,
+        devise TEXT NOT NULL,
         mois TEXT NOT NULL
       );
 
