@@ -30,7 +30,7 @@ const NouveauCat = () => {
             color: "gray",
           }}>
           Ajouter les catégorie qui peut constite les dépesens. (ex:
-          Logement, Divertissement, Loyer, Allimentation, Transport, etc) a vous
+          Logement, Divertissement(Loisire), Loyer, Allimentation, Transport, etc) a vous
           d'organiser vos catgories des dépense.
         </Text>
         <Divider
@@ -61,7 +61,7 @@ const NouveauCat = () => {
           // }
         />
         <Boutons
-          text={"Nouveau"}
+          text={"Enregistrer"}
           backgroundColor={"#040332"}
           colorText={"#FFF"}
           iconname={"addfile"}

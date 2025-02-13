@@ -1,10 +1,11 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import TextInputs from "../../components/TextInputs";
-import { Divider } from "react-native-elements";
+import { CheckBox, Divider } from "react-native-elements";
 import Boutons from "../../components/Buttons";
 
 const NouveauBudget = () => {
+  const [selectedValue, setSelectedValue] = useState("Franc");
   return (
     <View
       style={{
@@ -41,9 +42,9 @@ const NouveauBudget = () => {
         />
         <TextInputs
           label={"Saisie le budget"}
-          iconname={"arrowright"}
+          iconname={"attach-money"}
           iconcolor={"green"}
-          placeholder={"ex: logement"}
+          placeholder={"ex: 10$, 10000FC"}
           keyboardType={"numeric"}
           // // id={"montant"}
           // value={Validation.values.montant}
@@ -58,8 +59,36 @@ const NouveauBudget = () => {
           //   Validation.errors.montant
           // }
         />
+        <View style={{
+            marginTop:10,
+            marginLeft:-8
+        }} >
+          <View
+            style={{
+              flexDirection: "row",
+            }}>
+            <View style={{ marginRight: -5 }}>
+              <CheckBox
+                title="FC (Franc congolais)"
+                checked={selectedValue === "Franc"}
+                onPress={(e) => setSelectedValue("Franc")}
+                checkedIcon="dot-circle-o"
+                // uncheckedIcon="circle-o"
+              />
+            </View>
+            <View>
+              <CheckBox
+                title="$ (Dollard Americain)"
+                checked={selectedValue === "dollar"}
+                onPress={() => setSelectedValue("dollar")}
+                checkedIcon="dot-circle-o"
+                //   uncheckedIcon="circle-o"
+              />
+            </View>
+          </View>
+        </View>
         <Boutons
-          text={"Nouveau"}
+          text={"Enregistrer"}
           backgroundColor={"#040332"}
           colorText={"#FFF"}
           iconname={"addfile"}
