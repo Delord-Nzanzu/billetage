@@ -135,13 +135,14 @@ const Budget = () => {
                   key={key}
                   style={{
                     padding: 10,
-                    marginTop: -20,
+                    marginTop: -10,
                     margin: 20,
                     backgroundColor: key % 2 === 0 ? "#fff" : "#F9F9F9",
                     borderColor: key % 2 === 0 ? "#040332" : "#F9F9F9",
                     borderWidth: 1,
                     borderRadius: 5,
                     elevation: 1,
+                    
                   }}>
                   <View
                     style={{

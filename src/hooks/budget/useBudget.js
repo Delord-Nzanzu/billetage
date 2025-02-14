@@ -36,15 +36,15 @@ const useBudget = () => {
 
     setLoading(true);
     db.runAsync(
-      "UPDATE Budget SET nmontant_initial=?,devise=?,description=? WHERE id_budget=?;",
+      "UPDATE Budget SET montant_initial=?,devise=?,description=? WHERE id_budget=?;",
       [montant, devise, description, id]
     )
-      .then(({ rowsAffected, ke }) => {
-        alert("✅ Catégorie Modifié !");
+      .then(() => {
+        alert("✅ Budget Modifié !");
       })
       .catch((error) => {
         setError(true);
-        // console.error("🚨 Erreur :", error);
+        console.error("🚨 Erreur :", error);
       })
       .finally(() => {
         setTimeout(() => {

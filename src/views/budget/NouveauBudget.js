@@ -13,7 +13,6 @@ const NouveauBudget = () => {
   const params = useRoute();
   const { data } = params.params;
 
-  
   const [selectedValue, setSelectedValue] = useState(
     data !== null ? data?.devise : "CDF"
   );
@@ -30,7 +29,7 @@ const NouveauBudget = () => {
     }),
     onSubmit: (e, { resetForm }) => {
       if (data !== null) {
-        // console.log("modification")
+        // console.log("modification", e.montant);
         updateBudget({
           description: e.description,
           devise: selectedValue,
