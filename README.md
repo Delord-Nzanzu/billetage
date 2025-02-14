@@ -17,8 +17,8 @@ Avant de commencer, assurez-vous d'avoir **Node.js** et **Expo CLI** installés 
 1️⃣ Clonez le projet :
 
 ```sh
-git clone https://github.com/votre-utilisateur/nom-du-repo.git
-cd nom-du-repo
+git clone https://github.com/Delord-Nzanzu/billetage.git
+cd billetage
 ```
 
 2️⃣ Installez les dépendances :
