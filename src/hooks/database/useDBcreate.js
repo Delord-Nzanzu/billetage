@@ -38,7 +38,6 @@ export default function useDatabase() {
       console.log("✅ Tables créées avec succès !");
       setDb(database);
       setIsReady(true);
-      // console.log("db", db);
       nav.navigate("PresentationScreen");
     } catch (error) {
       console.error("🚨 Erreur lors de la création des tables :", error);

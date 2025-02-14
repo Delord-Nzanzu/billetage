@@ -1,13 +1,12 @@
 import { useState } from "react";
 import useDatabase from "../database/useDBcreate";
+import * as SecureStorage from "expo-secure-store";
 
 const useCategories = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { db, isReady } = useDatabase();
-
-  console.log("comment:)",db)
 
   const createCategories = (designation) => {
     if (!isReady || !db) return;
@@ -45,7 +44,7 @@ const useCategories = () => {
       });
   };
 
-  return { createCategories, error, loading, getCategories };
+  return { createCategories, error, loading, getCategories, data };
 };
 
 export default useCategories;
