@@ -44,11 +44,19 @@ export default function useDatabase() {
     }
   };
   const initDB = async () => {
-    const database = await SQLite.openDatabaseAsync("bdgestion.db");
-    setDb(database);
-    setIsReady(true);
+    try {
+      const database = await SQLite.openDatabaseAsync("bdgestion.db");
+      setDb(database);
+      setIsReady(true);
+      // console.log("✅ Base de données initialisée !");
+    } catch (error) {
+      console.error("🚨 Erreur d'initialisation de la BD :", error);
+    }
   };
-  
+
+  useEffect(() => {
+    initDB(); // Démarrer l'initialisation au montage du composant
+  }, []);
 
   return { db, isReady, initialisationBD, initDB };
 }

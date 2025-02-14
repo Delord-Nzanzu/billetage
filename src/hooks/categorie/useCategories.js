@@ -8,9 +8,9 @@ const useCategories = () => {
   const [error, setError] = useState(false);
   const { db, isReady, initDB } = useDatabase();
 
-  useEffect(() => {
-    initDB();
-  }, []);
+  //   useEffect(() => {
+  //     initDB();
+  //   }, []);
 
   //   console.log("data;", db);
 
@@ -45,10 +45,10 @@ const useCategories = () => {
     if (!isReady || !db) return;
 
     setLoading(true);
-    db.runAsync(
-      "UPDATE Categorie_de_Depense SET nom=? WHERE id_categorie=?;",
-      [designation, id_categories]
-    )
+    db.runAsync("UPDATE Categorie_de_Depense SET nom=? WHERE id_categorie=?;", [
+      designation,
+      id_categories,
+    ])
       .then(({ rowsAffected, ke }) => {
         alert("✅ Catégorie Modifié !");
       })
@@ -87,7 +87,9 @@ const useCategories = () => {
 
   const getCategories = () => {
     if (!isReady || !db) return;
+
     setLoading(true);
+
     db.getAllAsync("SELECT * FROM Categorie_de_Depense;")
       .then((categories) => {
         // console.log("📌 Catégories récupérées :", categories);
@@ -103,6 +105,32 @@ const useCategories = () => {
       });
   };
 
+  const coutCategories = () => {
+    if (!isReady || !db) return;
+
+    setLoading(true);
+
+    db.getAllAsync("SELECT count(*) as total FROM Categorie_de_Depense;")
+      .then((categories) => {
+        // console.log("📌 Catégories récupérées :", categories);
+        setData(categories);
+      })
+      .catch((error) => {
+        console.error("🚨 Erreur lors de la récupération :", error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 5000);
+      });
+  };
+
+//   useEffect(() => {
+//     if (isReady) {
+//       getCategories();
+//     }
+//   }, [isReady]);
+
   return {
     createCategories,
     error,
@@ -111,6 +139,7 @@ const useCategories = () => {
     data,
     deleteCategories,
     updateCategories,
+    isReady
   };
 };
 

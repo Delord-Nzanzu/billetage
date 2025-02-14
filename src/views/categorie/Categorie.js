@@ -15,7 +15,7 @@ import AntDesing from "react-native-vector-icons/MaterialIcons";
 
 const Categorie = () => {
   const nav = useNavigation();
-  const { getCategories, data, loading, deleteCategories } = useCategories();
+  const { getCategories, data, loading, deleteCategories,isReady } = useCategories();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -37,8 +37,10 @@ const Categorie = () => {
   };
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    if (isReady) {
+      getCategories();
+    }
+  }, [isReady]);
 
   return (
     <View
@@ -48,8 +50,10 @@ const Categorie = () => {
       }}>
       <Header
         iconenameMaterialUi={"file-present"}
-        title={"Catégorie"}
-        subTite={"Les catégories sont de liste qui constitue vos quotidient"}
+        title={"Catégories"}
+        subTite={
+          "Les catégories sont de liste de vos depense quotidienne (ex: transport, Unites, etc.)"
+        }
       />
       <ScrollView
         showsVerticalScrollIndicator={false}

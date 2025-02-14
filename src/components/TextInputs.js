@@ -94,7 +94,7 @@ const TextInputs = ({
             // borderColor: "none",
             width: width ? width : "100%",
             height: 50,
-            fontFamily: "monst-r",
+            fontFamily: "monst",
             fontSize: 16,
           }}
         />
