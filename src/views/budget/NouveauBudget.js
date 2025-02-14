@@ -3,9 +3,33 @@ import React, { useState } from "react";
 import TextInputs from "../../components/TextInputs";
 import { CheckBox, Divider } from "react-native-elements";
 import Boutons from "../../components/Buttons";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import useBudget from "../../hooks/budget/useBudget";
 
 const NouveauBudget = () => {
-  const [selectedValue, setSelectedValue] = useState("Franc");
+  const [selectedValue, setSelectedValue] = useState("CDF");
+  const { createBudget, loading } = useBudget();
+
+  const validation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      montant: "",
+      description: "",
+    },
+    validationSchema: yup.object().shape({
+      montant: yup.string().required("Le champs est obligatoire"),
+      description: yup.string().required("Le champs est obligatoire"),
+    }),
+    onSubmit: (e, { resetForm }) => {
+      createBudget({
+        description: e.description,
+        devise: selectedValue,
+        montant: e.montant,
+      });
+    },
+  });
+
   return (
     <View
       style={{
@@ -47,17 +71,17 @@ const NouveauBudget = () => {
           placeholder={"ex: 10$, 10000FC"}
           keyboardType={"numeric"}
           // // id={"montant"}
-          // value={Validation.values.montant}
-          // onChange={Validation.handleChange("montant")}
-          // onBlue={Validation.handleBlur("montant")}
-          // error={
-          //   Validation.errors.montant && Validation.touched.montant && true
-          // }
-          // texterror={
-          //   Validation.errors.montant &&
-          //   Validation.touched.montant &&
-          //   Validation.errors.montant
-          // }
+          value={validation.values.montant}
+          onChange={validation.handleChange("montant")}
+          onBlue={validation.handleBlur("montant")}
+          error={
+            validation.errors.montant && validation.touched.montant && true
+          }
+          texterror={
+            validation.errors.montant &&
+            validation.touched.montant &&
+            validation.errors.montant
+          }
         />
 
         <View
@@ -72,8 +96,8 @@ const NouveauBudget = () => {
             <View style={{ marginRight: -5 }}>
               <CheckBox
                 title="FC (Franc congolais)"
-                checked={selectedValue === "Franc"}
-                onPress={(e) => setSelectedValue("Franc")}
+                checked={selectedValue === "CDF"}
+                onPress={(e) => setSelectedValue("CDF")}
                 checkedIcon="dot-circle-o"
                 // uncheckedIcon="circle-o"
               />
@@ -81,8 +105,8 @@ const NouveauBudget = () => {
             <View>
               <CheckBox
                 title="$ (Dollard Americain)"
-                checked={selectedValue === "dollar"}
-                onPress={() => setSelectedValue("dollar")}
+                checked={selectedValue === "USD"}
+                onPress={() => setSelectedValue("USD")}
                 checkedIcon="dot-circle-o"
                 //   uncheckedIcon="circle-o"
               />
@@ -95,17 +119,19 @@ const NouveauBudget = () => {
             placeholder={"ex: Budget initial du mois de janvier"}
             // keyboardType={"numeric"}
             // // id={"montant"}
-            // value={Validation.values.montant}
-            // onChange={Validation.handleChange("montant")}
-            // onBlue={Validation.handleBlur("montant")}
-            // error={
-            //   Validation.errors.montant && Validation.touched.montant && true
-            // }
-            // texterror={
-            //   Validation.errors.montant &&
-            //   Validation.touched.montant &&
-            //   Validation.errors.montant
-            // }
+            value={validation.values.description}
+            onChange={validation.handleChange("description")}
+            onBlue={validation.handleBlur("description")}
+            error={
+              validation.errors.description &&
+              validation.touched.description &&
+              true
+            }
+            texterror={
+              validation.errors.description &&
+              validation.touched.description &&
+              validation.errors.description
+            }
           />
         </View>
         <Boutons
@@ -115,7 +141,8 @@ const NouveauBudget = () => {
           iconname={"addfile"}
           colorIcon={"#fff"}
           //   width={"30%"}
-          //   onPress={() => nav.navigate("NouveauCat")}
+          onPress={validation.handleSubmit}
+          disabled={loading}
         />
       </View>
     </View>

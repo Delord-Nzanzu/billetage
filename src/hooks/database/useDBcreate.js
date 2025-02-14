@@ -9,7 +9,7 @@ export default function useDatabase() {
 
   const initialisationBD = async () => {
     try {
-      const database = await SQLite.openDatabaseAsync("bdgestion.db");
+      const database = await SQLite.openDatabaseAsync("bdgestions.db");
       await database.execAsync(`
         CREATE TABLE IF NOT EXISTS Budget (
           id_budget INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,7 +46,7 @@ export default function useDatabase() {
   };
   const initDB = async () => {
     try {
-      const database = await SQLite.openDatabaseAsync("bdgestion.db");
+      const database = await SQLite.openDatabaseAsync("bdgestions.db");
       setDb(database);
       setIsReady(true);
       // console.log("✅ Base de données initialisée !");

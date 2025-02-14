@@ -38,7 +38,7 @@ const useCategories = () => {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 5000);
+        }, 2000);
       });
   };
 
@@ -60,7 +60,7 @@ const useCategories = () => {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 5000);
+        }, 2000);
       });
   };
 
@@ -82,7 +82,7 @@ const useCategories = () => {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 5000);
+        }, 2000);
       });
   };
 
@@ -126,11 +126,11 @@ const useCategories = () => {
       });
   };
 
-//   useEffect(() => {
-//     if (isReady) {
-//       coutCategories();
-//     }
-//   }, [isReady]);
+  //   useEffect(() => {
+  //     if (isReady) {
+  //       coutCategories();
+  //     }
+  //   }, [isReady]);
 
   return {
     createCategories,
@@ -142,7 +142,7 @@ const useCategories = () => {
     updateCategories,
     isReady,
     coutCategories,
-    dataEl
+    dataEl,
   };
 };
 
