@@ -14,15 +14,18 @@ import { Data } from "../../data/Data";
 import ChartGraphic from "../../components/ChartGraphic";
 import { useNavigation } from "@react-navigation/native";
 import useCategories from "../../hooks/categorie/useCategories";
+import useBudget from "../../hooks/budget/useBudget";
 
 const HomeDepense = () => {
   const { coutCategories, isReady, loading, dataEl } = useCategories();
+  const { coutBudget, dataEl: datbugetCount } = useBudget();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
       coutCategories();
+      coutBudget();
       setRefreshing(false);
     }, 2000);
   };
@@ -30,6 +33,7 @@ const HomeDepense = () => {
   useEffect(() => {
     if (isReady) {
       coutCategories();
+      coutBudget();
     }
   }, [isReady]);
 
@@ -226,7 +230,19 @@ const HomeDepense = () => {
                     textAlign: "center",
                     marginTop: 10,
                   }}>
-                  18
+                  {loading === true ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontFamily: "monst-r",
+                          color: "#fff",
+                        }}>
+                        ...
+                      </Text>
+                    </View>
+                  ) : (
+                    datbugetCount
+                  )}
                 </Text>
               </View>
               <View

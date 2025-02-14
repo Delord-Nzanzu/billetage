@@ -8,6 +8,7 @@ const useBudget = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { db, isReady } = useDatabase();
+  const [montantSelonLeMois, setMontantSelonLeMois] = useState(0);
 
   const createBudget = ({ montant, devise, description }) => {
     if (!isReady || !db) return;
@@ -73,6 +74,92 @@ const useBudget = () => {
       });
   };
 
+  //   const getTotalBudgetForMonth = async (mois = "2025-02") => {
+  //     if (!db) return;
+
+  //     try {
+  //       const result = await db.getFirstAsync(
+  //         `SELECT strftime('%Y-%m', date_budget) AS mois,
+  //                 SUM(montant_initial) AS total_montant
+  //          FROM Budget
+  //          WHERE strftime('%Y-%m', date_budget) = ?
+  //          GROUP BY mois;`, // Regroupe bien par mois
+  //         [mois] // Ex: "2025-02"
+  //       );
+
+  //       console.log(
+  //         "📌 Somme du budget pour le mois",
+  //         mois,
+  //         ":",
+  //         result || "Aucun budget trouvé"
+  //       );
+  //       return result || { mois, total_montant: 0 }; // Retourne 0 si aucun résultat
+  //     } catch (error) {
+  //       console.error(
+  //         "🚨 Erreur lors du calcul du budget pour",
+  //         mois,
+  //         ":",
+  //         error
+  //       );
+  //       return null;
+  //     }
+  //   };
+
+  //recupperation de la somme total selon chaque mois
+  const getTotalBudgetForCurrentMonth = async () => {
+    if (!db) return;
+
+    try {
+      const result = await db.getFirstAsync(
+        `SELECT strftime('%Y-%m', date_budget) AS mois, 
+                COALESCE(SUM(montant_initial), 0) AS total_montant 
+         FROM Budget 
+         WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now') 
+         GROUP BY mois;`
+      );
+
+      if (result) {
+        // console.log(
+        //   `📌 Budget total pour ${result.mois} : ${result.total_montant} `
+        // );
+        setMontantSelonLeMois(result.total_montant);
+        return result.total_montant;
+      } else {
+        const currentMonth = new Date().toISOString().slice(0, 7);
+        // console.log(`📌 Aucun budget trouvé pour ${currentMonth}, total = 0`);
+        return { mois: currentMonth, total_montant: 0 };
+      }
+    } catch (error) {
+      console.error(
+        "🚨 Erreur lors du calcul du budget du mois en cours :",
+        error
+      );
+      return null;
+    }
+  };
+
+  //reccuperation de tous le enregistrement du budget
+
+  const coutBudget = () => {
+    if (!isReady || !db) return;
+
+    setLoading(true);
+
+    db.getFirstAsync("SELECT count(*) as total FROM Budget;")
+      .then((categories) => {
+        // console.log("📌 Catégories récupérées :", categories?.total);
+        setDataEl(categories?.total);
+      })
+      .catch((error) => {
+        console.error("🚨 Erreur lors de la récupération :", error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+      });
+  };
+
   const getBudget = () => {
     if (!isReady || !db) return;
 
@@ -93,9 +180,11 @@ const useBudget = () => {
       });
   };
 
-  //   useEffect(()=>{
-  //     getBudget()
-  //   },[])
+  useEffect(() => {
+    if (isReady) {
+      getTotalBudgetForCurrentMonth();
+    }
+  }, [isReady]);
 
   return {
     data,
@@ -108,6 +197,8 @@ const useBudget = () => {
     getBudget,
     deleteBudget,
     updateBudget,
+    montantSelonLeMois,
+    coutBudget
   };
 };
 

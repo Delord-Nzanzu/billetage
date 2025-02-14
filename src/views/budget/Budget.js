@@ -142,7 +142,6 @@ const Budget = () => {
                     borderWidth: 1,
                     borderRadius: 5,
                     elevation: 1,
-                    
                   }}>
                   <View
                     style={{
@@ -208,6 +207,7 @@ const Budget = () => {
                           borderRadius: 10,
                           justifyContent: "center",
                           alignItems: "center",
+                          flexDirection: "row",
                         }}>
                         <AntDesing
                           name="edit"
