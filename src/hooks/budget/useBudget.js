@@ -31,6 +31,28 @@ const useBudget = () => {
       });
   };
 
+  const updateBudget = ({ montant, devise, description }) => {
+    if (!isReady || !db) return;
+
+    setLoading(true);
+    db.runAsync(
+      "UPDATE Budget SET nmontant_initial=?,devise=?,description=? WHERE id_budget=?;",
+      [montant, devise, description]
+    )
+      .then(({ rowsAffected, ke }) => {
+        alert("✅ Catégorie Modifié !");
+      })
+      .catch((error) => {
+        setError(true);
+        // console.error("🚨 Erreur :", error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      });
+  };
+
   const deleteBudget = ({ id }) => {
     if (!isReady || !db) return;
 
@@ -85,6 +107,7 @@ const useBudget = () => {
     createBudget,
     getBudget,
     deleteBudget,
+    updateBudget,
   };
 };
 

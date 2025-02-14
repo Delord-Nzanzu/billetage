@@ -6,16 +6,21 @@ import Boutons from "../../components/Buttons";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import useBudget from "../../hooks/budget/useBudget";
+import { useRoute } from "@react-navigation/native";
 
 const NouveauBudget = () => {
-  const [selectedValue, setSelectedValue] = useState("CDF");
-  const { createBudget, loading } = useBudget();
+  const { createBudget, loading, updateBudget } = useBudget();
+  const params = useRoute();
+  const { data } = params.params;
+  const [selectedValue, setSelectedValue] = useState(
+    data !== null ? data?.devise : "CDF"
+  );
 
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      montant: "",
-      description: "",
+      montant: data !== null ? data.montant : "",
+      description: data !== null ? data.description : "",
     },
     validationSchema: yup.object().shape({
       montant: yup.string().required("Le champs est obligatoire"),

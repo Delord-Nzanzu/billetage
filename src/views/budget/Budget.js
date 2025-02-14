@@ -27,8 +27,12 @@ const Budget = () => {
   };
 
   const suppressionBudget = (e) => {
-    console.log("delete", e);
+    // console.log("delete", e);
     deleteBudget({ id: e.id_budget });
+  };
+
+  const gotUpdate = (e) => {
+    nav.navigate("NouveauBudget", { data: e });
   };
 
   useEffect(() => {
@@ -196,7 +200,7 @@ const Budget = () => {
                         flexDirection: "row",
                       }}>
                       <TouchableOpacity
-                        // onPress={() => gotUpdate(e)}
+                        onPress={() => gotUpdate(e)}
                         style={{
                           padding: 10,
                           backgroundColor: "#2a2670",
