@@ -9,7 +9,7 @@ export default function useDatabase() {
 
   const initialisationBD = async () => {
     try {
-      const database = await SQLite.openDatabaseAsync("gdepense.db");
+      const database = await SQLite.openDatabaseAsync("bdgestion.db");
       await database.execAsync(`
         CREATE TABLE IF NOT EXISTS Budget (
           id_budget INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,13 +36,19 @@ export default function useDatabase() {
       `);
 
       console.log("✅ Tables créées avec succès !");
-      setDb(database);
-      setIsReady(true);
+      // setDb(database);
+      // setIsReady(true);
       nav.navigate("PresentationScreen");
     } catch (error) {
       console.error("🚨 Erreur lors de la création des tables :", error);
     }
   };
+  const initDB = async () => {
+    const database = await SQLite.openDatabaseAsync("bdgestion.db");
+    setDb(database);
+    setIsReady(true);
+  };
+  
 
-  return { db, isReady, initialisationBD };
+  return { db, isReady, initialisationBD, initDB };
 }

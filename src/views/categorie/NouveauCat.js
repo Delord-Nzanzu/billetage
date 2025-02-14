@@ -6,20 +6,32 @@ import Boutons from "../../components/Buttons";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import useCategories from "../../hooks/categorie/useCategories";
+import { useRoute } from "@react-navigation/native";
 
 const NouveauCat = () => {
-  const { createCategories, loading, error } = useCategories();
+  const { createCategories, loading, error, updateCategories } =
+    useCategories();
+  const params = useRoute();
+  const { data } = params.params;
 
   const validation = useFormik({
     enableReinitialize: false,
     initialValues: {
-      designation: "",
+      designation: data !== null ? data?.nom : "",
     },
     validationSchema: yup.object().shape({
       designation: yup.string().required("Les champs est obligatoire"),
     }),
-    onSubmit:  (e, { resetForm }) => {
-       createCategories({ designation: e.designation });
+    onSubmit: (e, { resetForm }) => {
+      if (data !== null) {
+        // console.log("modification")
+        updateCategories({
+          designation: e.designation,
+          id_categories: data?.id_categorie,
+        });
+      } else {
+        createCategories({ designation: e.designation });
+      }
     },
   });
 
@@ -81,7 +93,7 @@ const NouveauCat = () => {
           }
         />
         <Boutons
-          text={"Enregistrer"}
+          text={data !== null ? "Modification" : "Enregistrer"}
           backgroundColor={"#040332"}
           colorText={"#FFF"}
           iconname={"addfile"}
