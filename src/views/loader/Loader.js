@@ -3,11 +3,11 @@ import * as React from "react";
 import { useFonts } from "expo-font";
 import { Grid, Flow } from "react-native-animated-spinkit";
 import { StatusBar } from "expo-status-bar";
-import dbcreate from "../../hooks/database/dbcreate";
+import useDatabase from "../../hooks/database/useDBcreate";
 
 export const LoaderScreen = () => {
   const { width } = useWindowDimensions();
-  const { initialisationBD } = dbcreate();
+  const { initialisationBD } = useDatabase();
 
   const [loaded] = useFonts({
     monst: require("../../../assets/fonts/static/Montserrat-Bold.ttf"),
@@ -17,9 +17,9 @@ export const LoaderScreen = () => {
 
   React.useEffect(() => {
     if (loaded) {
-      setTimeout(async () => {
-        await initialisationBD();
-        // props.navigation.navigate("PresentationScreen");
+      setTimeout(() => {
+        console.log("✅ Base de données prête !");
+        initialisationBD();
       }, 5000);
     }
   }, [loaded]);
@@ -31,29 +31,16 @@ export const LoaderScreen = () => {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#fff",
-        justifyContent: "space-between",
       }}>
       <StatusBar translucent={true} backgroundColor="#040332" style="light" />
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-          }}>
-          <Image
-            style={[
-              { flex: 0.7, justifyContent: "center" },
-              { width, resizeMode: "contain" },
-            ]}
-            source={require("../../../assets/log.png")}
-          />
-        </View>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Image
+          style={[
+            { flex: 0.6, justifyContent: "center" },
+            { width, resizeMode: "contain" },
+          ]}
+          source={require("../../../assets/log.png")}
+        />
         <View style={{ flexDirection: "row" }}>
           <Text
             style={{
@@ -65,10 +52,7 @@ export const LoaderScreen = () => {
             Veuillez patienter
           </Text>
           <Flow
-            style={{
-              marginTop: 10,
-              marginLeft: 10,
-            }}
+            style={{ marginTop: 10, marginLeft: 10 }}
             size={20}
             color={"#040332"}
           />

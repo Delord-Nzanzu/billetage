@@ -1,12 +1,19 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import Boutons from "../../components/Buttons";
 import { Divider } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import useCategories from "../../hooks/categorie/useCategories";
 
 const Categorie = () => {
   const nav = useNavigation();
+  const { getCategories } = useCategories();
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   return (
     <View
       style={{
@@ -31,7 +38,7 @@ const Categorie = () => {
           iconname={"arrowright"}
           colorIcon={"#fff"}
           width={"30%"}
-          onPress={()=>nav.navigate("NouveauCat")}
+          onPress={() => nav.navigate("NouveauCat")}
         />
       </View>
       <View
@@ -44,7 +51,7 @@ const Categorie = () => {
             fontFamily: "monst",
             fontSize: 18,
           }}>
-          Listes de catégorie
+          Listes des catégories
         </Text>
         <Divider
           style={{

@@ -3,8 +3,26 @@ import React from "react";
 import TextInputs from "../../components/TextInputs";
 import { Divider } from "react-native-elements";
 import Boutons from "../../components/Buttons";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import useCategories from "../../hooks/categorie/useCategories";
 
 const NouveauCat = () => {
+  const { createCategories, loading, error } = useCategories();
+
+  const validation = useFormik({
+    enableReinitialize: false,
+    initialValues: {
+      designation: "",
+    },
+    validationSchema: yup.object().shape({
+      designation: yup.string().required("Les champs est obligatoire"),
+    }),
+    onSubmit:  (e, { resetForm }) => {
+       createCategories({ designation: e.designation });
+    },
+  });
+
   return (
     <View
       style={{
@@ -29,8 +47,8 @@ const NouveauCat = () => {
             fontSize: 16,
             color: "gray",
           }}>
-          Ajouter les catégorie qui peut constite les dépesens. (ex:
-          Logement, Divertissement(Loisire), Loyer, Allimentation, Transport, etc) a vous
+          Ajouter les catégorie qui peut constite les dépesens. (ex: Logement,
+          Divertissement(Loisire), Loyer, Allimentation, Transport, etc) a vous
           d'organiser vos catgories des dépense.
         </Text>
         <Divider
@@ -48,17 +66,19 @@ const NouveauCat = () => {
           placeholder={"ex: logement"}
           // keyboardType={"numeric"}
           // // id={"montant"}
-          // value={Validation.values.montant}
-          // onChange={Validation.handleChange("montant")}
-          // onBlue={Validation.handleBlur("montant")}
-          // error={
-          //   Validation.errors.montant && Validation.touched.montant && true
-          // }
-          // texterror={
-          //   Validation.errors.montant &&
-          //   Validation.touched.montant &&
-          //   Validation.errors.montant
-          // }
+          value={validation.values.designation}
+          onChange={validation.handleChange("designation")}
+          onBlue={validation.handleBlur("designation")}
+          error={
+            validation.errors.designation &&
+            validation.touched.designation &&
+            true
+          }
+          texterror={
+            validation.errors.designation &&
+            validation.touched.designation &&
+            validation.errors.designation
+          }
         />
         <Boutons
           text={"Enregistrer"}
@@ -67,7 +87,8 @@ const NouveauCat = () => {
           iconname={"addfile"}
           colorIcon={"#fff"}
           //   width={"30%"}
-          //   onPress={() => nav.navigate("NouveauCat")}
+          onPress={validation.handleSubmit}
+          disabled={loading}
         />
       </View>
     </View>
