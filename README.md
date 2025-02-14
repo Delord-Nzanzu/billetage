@@ -2,7 +2,7 @@
 
 Bienvenue sur **Gestion des Dépenses & Billetages**, une application conçue pour simplifier la gestion de votre budget en optimisant la répartition des montants selon les billets disponibles.
 
----
+----
 
 ## 🚀 Fonctionnalités principales
 
