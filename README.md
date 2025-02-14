@@ -1,50 +1,58 @@
-Gestion des Dépenses & Billetages
+# 📊 Gestion des Dépenses & Billetages
 
-Bienvenue sur l'application Gestion des Dépenses & Billetages. Cette application vous aide à mieux gérer vos dépenses en facilitant la répartition d'un montant donné selon les billets disponibles.
+Bienvenue sur **Gestion des Dépenses & Billetages**, une application conçue pour simplifier la gestion de votre budget en optimisant la répartition des montants selon les billets disponibles.
 
-📱 Fonctionnalités
+---
 
-Gestion des dépenses : Suivez vos entrées et sorties d'argent avec précision.
+## 🚀 Fonctionnalités principales
 
-Répartition automatique des billets : Saisissez un montant et obtenez une répartition optimale des billets.
+✅ **Suivi des dépenses** : Analysez vos entrées et sorties d'argent avec précision. ✅ **Répartition automatique** : Saisissez un montant, sélectionnez votre devise et obtenez une distribution optimisée des billets. ✅ **Interface intuitive** : Utilisation simple et rapide pour une gestion efficace de vos finances.
 
-Support multi-devises : Sélectionnez votre devise et obtenez un calcul adapté.
+---
 
-🛠 Installation
+## 📥 Installation
 
-Assurez-vous d'avoir Node.js et Expo CLI installés.
+Avant de commencer, assurez-vous d'avoir **Node.js** et **Expo CLI** installés sur votre machine.
 
-Clonez le projet :
+1️⃣ Clonez le projet :
 
-git clone https://github.com/Delord-Nzanzu/billetage.git
+```sh
+git clone https://github.com/votre-utilisateur/nom-du-repo.git
 cd nom-du-repo
+```
 
-Installez les dépendances :
+2️⃣ Installez les dépendances :
 
+```sh
 yarn install
+```
 
-Lancez l'application :
+3️⃣ Lancez l'application :
 
+```sh
 expo start
+```
 
-📷 Aperçu
+---
 
-Écran d'accueil
+## 📸 Aperçu de l'application
 
-Répartition des billets
+| Écran d'accueil | Répartition des billets | Gestion des finances |
+| --------------- | ----------------------- | -------------------- |
+|                 |                         |                      |
 
-Optimisation des dépenses
+---
 
+## 🏁 Démarrage rapide
 
+🔹 Appuyez sur le bouton **Commencer** dans l'application pour débuter votre gestion des dépenses !
 
+---
 
+## 📜 Licence
 
+📌 Ce projet est sous licence **MIT**. Vous êtes libre de l'utiliser et de le modifier.
 
+---
 
-🚀 Démarrage
-
-Pour commencer, appuyez sur le bouton Commencer dans l'application.
-
-📝 Licence
-
-Ce projet est sous licence MIT. Vous êtes libre de l'utiliser et de le modifier.
+✨ Développé avec ❤️ en **React Native**.
