@@ -4,6 +4,7 @@ import * as SecureStorage from "expo-secure-store";
 
 const useCategories = () => {
   const [data, setData] = useState([]);
+  const [dataEl, setDataEl] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { db, isReady, initDB } = useDatabase();
@@ -110,10 +111,10 @@ const useCategories = () => {
 
     setLoading(true);
 
-    db.getAllAsync("SELECT count(*) as total FROM Categorie_de_Depense;")
+    db.getFirstAsync("SELECT count(*) as total FROM Categorie_de_Depense;")
       .then((categories) => {
-        // console.log("📌 Catégories récupérées :", categories);
-        setData(categories);
+        // console.log("📌 Catégories récupérées :", categories?.total);
+        setDataEl(categories?.total);
       })
       .catch((error) => {
         console.error("🚨 Erreur lors de la récupération :", error);
@@ -121,13 +122,13 @@ const useCategories = () => {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 5000);
+        }, 3000);
       });
   };
 
 //   useEffect(() => {
 //     if (isReady) {
-//       getCategories();
+//       coutCategories();
 //     }
 //   }, [isReady]);
 
@@ -139,7 +140,9 @@ const useCategories = () => {
     data,
     deleteCategories,
     updateCategories,
-    isReady
+    isReady,
+    coutCategories,
+    dataEl
   };
 };
 

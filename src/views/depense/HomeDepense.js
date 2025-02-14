@@ -1,5 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import AntDesing from "react-native-vector-icons/MaterialIcons";
 import Header from "../../components/Header";
@@ -7,9 +13,27 @@ import { Divider } from "react-native-elements";
 import { Data } from "../../data/Data";
 import ChartGraphic from "../../components/ChartGraphic";
 import { useNavigation } from "@react-navigation/native";
+import useCategories from "../../hooks/categorie/useCategories";
 
 const HomeDepense = () => {
-  const nav=useNavigation()
+  const { coutCategories, isReady, loading, dataEl } = useCategories();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      coutCategories();
+      setRefreshing(false);
+    }, 2000);
+  };
+
+  useEffect(() => {
+    if (isReady) {
+      coutCategories();
+    }
+  }, [isReady]);
+
+  const nav = useNavigation();
   return (
     <View
       style={{
@@ -24,7 +48,11 @@ const HomeDepense = () => {
           "Gerer vos depense quotidienne toute en vous assurent de l'evolution chaque fin du mois"
         }
       />
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View
           style={{
             margin: 20,
@@ -52,7 +80,7 @@ const HomeDepense = () => {
           {Data.map((e, key) => {
             return (
               <TouchableOpacity
-              onPress={()=>nav.navigate(e.link)}
+                onPress={() => nav.navigate(e.link)}
                 key={key}
                 style={{
                   padding: 10,
@@ -157,7 +185,19 @@ const HomeDepense = () => {
                     textAlign: "center",
                     marginTop: 10,
                   }}>
-                  180
+                  {loading === true ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontFamily: "monst-r",
+                          color: "#fff",
+                        }}>
+                        ...
+                      </Text>
+                    </View>
+                  ) : (
+                    dataEl
+                  )}
                 </Text>
               </View>
               <View
