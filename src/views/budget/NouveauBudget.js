@@ -12,6 +12,8 @@ const NouveauBudget = () => {
   const { createBudget, loading, updateBudget } = useBudget();
   const params = useRoute();
   const { data } = params.params;
+
+  
   const [selectedValue, setSelectedValue] = useState(
     data !== null ? data?.devise : "CDF"
   );
@@ -19,7 +21,7 @@ const NouveauBudget = () => {
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      montant: data !== null ? data.montant : "",
+      montant: data !== null ? parseFloat(data.montant_initial) : "",
       description: data !== null ? data.description : "",
     },
     validationSchema: yup.object().shape({
@@ -27,11 +29,21 @@ const NouveauBudget = () => {
       description: yup.string().required("Le champs est obligatoire"),
     }),
     onSubmit: (e, { resetForm }) => {
-      createBudget({
-        description: e.description,
-        devise: selectedValue,
-        montant: e.montant,
-      });
+      if (data !== null) {
+        // console.log("modification")
+        updateBudget({
+          description: e.description,
+          devise: selectedValue,
+          montant: e.montant,
+          id: data?.id_budget,
+        });
+      } else {
+        createBudget({
+          description: e.description,
+          devise: selectedValue,
+          montant: e.montant,
+        });
+      }
     },
   });
 
@@ -140,7 +152,7 @@ const NouveauBudget = () => {
           />
         </View>
         <Boutons
-          text={"Enregistrer"}
+          text={data !== null ? "Modification" : "Enregistrer"}
           backgroundColor={"#040332"}
           colorText={"#FFF"}
           iconname={"addfile"}

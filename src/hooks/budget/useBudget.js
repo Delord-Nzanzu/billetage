@@ -31,13 +31,13 @@ const useBudget = () => {
       });
   };
 
-  const updateBudget = ({ montant, devise, description }) => {
+  const updateBudget = ({ montant, devise, description, id }) => {
     if (!isReady || !db) return;
 
     setLoading(true);
     db.runAsync(
       "UPDATE Budget SET nmontant_initial=?,devise=?,description=? WHERE id_budget=?;",
-      [montant, devise, description]
+      [montant, devise, description, id]
     )
       .then(({ rowsAffected, ke }) => {
         alert("✅ Catégorie Modifié !");
