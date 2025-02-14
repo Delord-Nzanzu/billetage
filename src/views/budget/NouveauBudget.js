@@ -59,10 +59,12 @@ const NouveauBudget = () => {
           //   Validation.errors.montant
           // }
         />
-        <View style={{
-            marginTop:10,
-            marginLeft:-8
-        }} >
+
+        <View
+          style={{
+            marginTop: 10,
+            marginLeft: -8,
+          }}>
           <View
             style={{
               flexDirection: "row",
@@ -86,6 +88,25 @@ const NouveauBudget = () => {
               />
             </View>
           </View>
+          <TextInputs
+            label={"Description"}
+            iconname={"comment"}
+            iconcolor={"green"}
+            placeholder={"ex: Budget initial du mois de janvier"}
+            // keyboardType={"numeric"}
+            // // id={"montant"}
+            // value={Validation.values.montant}
+            // onChange={Validation.handleChange("montant")}
+            // onBlue={Validation.handleBlur("montant")}
+            // error={
+            //   Validation.errors.montant && Validation.touched.montant && true
+            // }
+            // texterror={
+            //   Validation.errors.montant &&
+            //   Validation.touched.montant &&
+            //   Validation.errors.montant
+            // }
+          />
         </View>
         <Boutons
           text={"Enregistrer"}

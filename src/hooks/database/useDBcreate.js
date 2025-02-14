@@ -15,7 +15,8 @@ export default function useDatabase() {
           id_budget INTEGER PRIMARY KEY AUTOINCREMENT,
           montant_initial REAL NOT NULL,
           devise TEXT NOT NULL,
-          mois TEXT NOT NULL
+          description TEXT NULL,
+          date_budget TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now')) 
         );
 
         CREATE TABLE IF NOT EXISTS Categorie_de_Depense (

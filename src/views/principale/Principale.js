@@ -99,7 +99,7 @@ export default function Principale(props) {
                 textAlign: "center",
                 color: "#fff",
               }}>
-              Gestion de dépense
+              Gestion budgétaire
             </Text>
           </TouchableOpacity>
         </View>
