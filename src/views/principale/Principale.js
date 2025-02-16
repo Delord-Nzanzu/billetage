@@ -17,7 +17,7 @@ export default function Principale(props) {
       <StatusBar translucent={true} backgroundColor="#040332" style="light" />
       <Header
         // iconenameMaterialUi={"attach-money"}
-        title={"Gestion de dépense & Billetages"}
+        title={"Gestion Budgétaire"}
         subTite={
           "Cette application vous permet de gérer vos dépenses tout en facilitant la répartition d'un montant donné en fonction des billets disponibles."
         }
@@ -99,7 +99,7 @@ export default function Principale(props) {
                 textAlign: "center",
                 color: "#fff",
               }}>
-              Gestion budgétaire
+              Gestion de Budget
             </Text>
           </TouchableOpacity>
         </View>

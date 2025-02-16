@@ -16,10 +16,10 @@ const PresentationScreen = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slides = [
     {
-      title: "Bienvenue sur l'App. de Gestion des dépenses & Billetages",
+      title: "Bienvenue sur l'application de gestion de budget",
       image: require("../../../assets/acceuill.png"),
       description:
-        "Cette application vous permet de gérer vos dépenses tout en facilitant la répartition d'un montant donné en fonction des billets disponibles.",
+        "L'application vous permet de suivre vos dépenses et de simplifier le billetage d'une somme lors de vos paiements.",
     },
     {
       title: "Comment ça marche ?",

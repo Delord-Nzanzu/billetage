@@ -10,7 +10,9 @@ const BarChartGraphic = () => {
     useDepense();
 
   useEffect(() => {
-    getTotalSelonCategorie();
+    if (isReady) {
+      getTotalSelonCategorie();
+    }
   }, [isReady]);
 
   return (
@@ -26,7 +28,7 @@ const BarChartGraphic = () => {
           marginLeft: 30,
           marginTop: -20,
         }}>
-        Dépense Selon le categorie
+        Dépense Selon la catégorie
       </Text>
       <BarChart
         data={{
