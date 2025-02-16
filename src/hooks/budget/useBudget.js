@@ -13,7 +13,7 @@ const useBudget = () => {
   const createBudget = async ({ montant, devise, description }) => {
     // getTotalBudgetForCurrentMonth();
     const totalMontant = await getTotalBudgetForCurrentMonth();
-    console.log("budget initial", totalMontant.total_montant);
+    console.log("budget initial", totalMontant);
     if (!isReady || !db) return;
 
     setLoading(true);
@@ -137,7 +137,8 @@ const useBudget = () => {
     try {
       const result = await db.getFirstAsync(
         `SELECT strftime('%Y-%m', date_budget) AS mois, 
-                COALESCE(SUM(montant_initial), 0) AS total_montant 
+                COALESCE(SUM(montant_initial), 0) AS total_montant,
+                id_budget
          FROM Budget 
          WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now') 
          GROUP BY mois;`
@@ -145,10 +146,44 @@ const useBudget = () => {
 
       if (result) {
         // console.log(
-        //   `📌 Budget total pour ${result.mois} : ${result.total_montant} `
+        //   `📌 Budget total pour ${result.mois} : ${result.total_montant} :${result.id_budget}`
         // );
         setMontantSelonLeMois(result.total_montant);
         return result.total_montant;
+      } else {
+        const currentMonth = new Date().toISOString().slice(0, 7);
+        // console.log(`📌 Aucun budget trouvé pour ${currentMonth}, total = 0`);
+        return { mois: currentMonth, total_montant: 0 };
+      }
+    } catch (error) {
+      console.error(
+        "🚨 Erreur lors du calcul du budget du mois en cours :",
+        error
+      );
+      return null;
+    }
+  };
+
+  //recupperation de la somme total selon chaque mois
+  const getTotalBudgetForCurrentMonth2 = async () => {
+    if (!db) return;
+
+    try {
+      const result = await db.getFirstAsync(
+        `SELECT strftime('%Y-%m', date_budget) AS mois, 
+                COALESCE(SUM(montant_initial), 0) AS total_montant,
+                id_budget
+         FROM Budget 
+         WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now') 
+         GROUP BY mois;`
+      );
+
+      if (result) {
+        // console.log(
+        //   `📌 Budget total pour ${result.mois} : ${result.total_montant} :${result.id_budget}`
+        // );
+        setMontantSelonLeMois(result.total_montant);
+        return result;
       } else {
         const currentMonth = new Date().toISOString().slice(0, 7);
         // console.log(`📌 Aucun budget trouvé pour ${currentMonth}, total = 0`);
@@ -224,6 +259,8 @@ const useBudget = () => {
     updateBudget,
     montantSelonLeMois,
     coutBudget,
+    getTotalBudgetForCurrentMonth,
+    getTotalBudgetForCurrentMonth2,
   };
 };
 

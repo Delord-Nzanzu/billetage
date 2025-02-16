@@ -7,11 +7,13 @@ import SelectNonMultiple from "../../components/SelectNonMultiple";
 import useCategories from "../../hooks/categorie/useCategories";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import useDepense from "../../hooks/depense/useDepense";
 
 const NouveauDepense = () => {
   const [selectedValue, setSelectedValue] = useState("Franc");
   const { datListeCombo, getCategories, isReady } = useCategories();
   const [selectCateg, setSelectCat] = useState();
+  const { createDepense } = useDepense();
 
   useEffect(() => {
     if (isReady) {
@@ -31,6 +33,12 @@ const NouveauDepense = () => {
     }),
     onSubmit: (e) => {
       console.log(selectCateg);
+      createDepense({
+        montant: e.montant,
+        devise: selectedValue,
+        description: e.motif,
+        idcategorie: selectCateg,
+      });
     },
   });
 
