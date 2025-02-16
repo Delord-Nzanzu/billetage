@@ -27,7 +27,7 @@ const NouveauBudget = () => {
       montant: yup.string().required("Le champs est obligatoire"),
       description: yup.string().required("Le champs est obligatoire"),
     }),
-    onSubmit: (e, { resetForm }) => {
+    onSubmit: async (e, { resetForm }) => {
       if (data !== null) {
         // console.log("modification", e.montant);
         updateBudget({
@@ -37,7 +37,7 @@ const NouveauBudget = () => {
           id: data?.id_budget,
         });
       } else {
-        createBudget({
+        await createBudget({
           description: e.description,
           devise: selectedValue,
           montant: e.montant,

@@ -10,26 +10,51 @@ const useBudget = () => {
   const { db, isReady } = useDatabase();
   const [montantSelonLeMois, setMontantSelonLeMois] = useState(0);
 
-  const createBudget = ({ montant, devise, description }) => {
+  const createBudget = async ({ montant, devise, description }) => {
+    // getTotalBudgetForCurrentMonth();
+    const totalMontant = await getTotalBudgetForCurrentMonth();
+    console.log("budget initial", totalMontant.total_montant);
     if (!isReady || !db) return;
 
     setLoading(true);
-    db.runAsync(
-      "INSERT INTO Budget (montant_initial,devise,description) VALUES (?,?,?);",
-      [montant, devise, description]
-    )
-      .then(({ rowsAffected, ke }) => {
-        alert("✅ Budget ajoutée !");
-      })
-      .catch((error) => {
-        setError(true);
-        console.error("🚨 Erreur :", error);
-      })
-      .finally(() => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
-      });
+    if (totalMontant.total_montant === 0) {
+      //creationnouveau budget du mois
+      db.runAsync(
+        "INSERT INTO Budget (montant_initial,devise,description) VALUES (?,?,?);",
+        [montant, devise, description]
+      )
+        .then(({ rowsAffected, ke }) => {
+          alert("✅ Budget ajoutée !");
+        })
+        .catch((error) => {
+          setError(true);
+          console.error("🚨 Erreur :", error);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        });
+    } else {
+      db.runAsync(
+        `UPDATE Budget 
+             SET montant_initial = montant_initial + ? 
+             WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now');`,
+        [montant]
+      )
+        .then(() => {
+          alert("✅ Budget mis à jour !");
+        })
+        .catch((error) => {
+          setError(true);
+          console.error("🚨 Erreur lors de la mise à jour :", error);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        });
+    }
   };
 
   const updateBudget = ({ montant, devise, description, id }) => {
@@ -198,7 +223,7 @@ const useBudget = () => {
     deleteBudget,
     updateBudget,
     montantSelonLeMois,
-    coutBudget
+    coutBudget,
   };
 };
 
