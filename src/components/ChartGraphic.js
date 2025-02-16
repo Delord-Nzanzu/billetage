@@ -1,5 +1,5 @@
 import { View, Text, Dimensions } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   LineChart,
   // BarChart,
@@ -8,8 +8,21 @@ import {
   // ContributionGraph,
   // StackedBarChart
 } from "react-native-chart-kit";
+import useDepense from "../hooks/depense/useDepense";
 
 const ChartGraphic = () => {
+  const { dataMonth, isReady, getTotalBudgetSelonMois } = useDepense();
+
+  useEffect(() => {
+    if (isReady) {
+      getTotalBudgetSelonMois();
+    }
+  }, [isReady]);
+
+  useEffect(() => {
+    console.log(dataMonth);
+  }, []);
+
   return (
     <View
       style={{
@@ -42,20 +55,12 @@ const ChartGraphic = () => {
           ],
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
+              data: (dataMonth.length > 0 ? dataMonth : Array(12).fill(0)).map(
+                (val) => {
+                  const num = Number(val);
+                  return isNaN(num) ? 0 : num;
+                }
+              ),
             },
           ],
         }}
@@ -68,22 +73,26 @@ const ChartGraphic = () => {
           backgroundColor: "#040332",
           backgroundGradientFrom: "#040332",
           backgroundGradientTo: "#040332",
-          decimalPlaces: 2, // optional, defaults to 2dp
+          decimalPlaces: 1, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
             borderRadius: 16,
           },
           propsForDots: {
-            r: "6",
-            strokeWidth: "2",
+            r: "4",
+            strokeWidth: "4",
             stroke: "#ffa726",
+          },
+          propsForLabels: {
+            dx: 15, // Décale les labels vers la droite
           },
         }}
         bezier
         style={{
-          marginVertical: 8,
-          borderRadius: 16,
+          marginVertical: 10,
+          borderRadius: 5,
+          margin: 1,
         }}
       />
     </View>

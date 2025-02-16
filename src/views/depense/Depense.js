@@ -48,9 +48,10 @@ const Depense = () => {
         backgroundColor: "#fff",
       }}>
       <Header
-        iconenameMaterialUi={"attach-money"}
+        // iconenameMaterialUi={"attach-money"}
+        marginTop={15}
         title={"Dépense"}
-        subTite={"Ajoutez et suivre vos dépenses en un clic"}
+        subTite={`Ajoutez et suivez vos dépenses en un clic. Chaque dépense enregistrée sera prise en compte dans votre budget mensuel. Veillez donc à saisir vos dépenses régulièrement afin de mieux suivre vos mouvements financiers.`}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -267,7 +268,7 @@ const Depense = () => {
                         fontFamily: "monst-i",
                         fontSize: 20,
                         marginTop: 10,
-                        color:"#A52A2A"
+                        color: "#A52A2A",
                       }}>
                       Solde Mensuel {montantRestante}
                     </Text>
@@ -278,7 +279,7 @@ const Depense = () => {
                         fontSize: 20,
                         marginTop: 10,
                         marginLeft: 2,
-                        color:"#A52A2A"
+                        color: "#A52A2A",
                       }}>
                       {e.devise}
                     </Text>

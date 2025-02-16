@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import AntDesing from "react-native-vector-icons/MaterialIcons";
 
-const Header = ({ iconenameMaterialUi, title, subTite }) => {
+const Header = ({ iconenameMaterialUi, title, subTite,marginTop }) => {
   return (
     <View
       style={{
@@ -28,6 +28,7 @@ const Header = ({ iconenameMaterialUi, title, subTite }) => {
               color: "#fff",
               fontFamily: "monst",
               fontSize: 25,
+              marginTop:marginTop
             }}>
             {title}
           </Text>

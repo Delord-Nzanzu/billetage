@@ -48,9 +48,11 @@ const Budget = () => {
         backgroundColor: "#fff",
       }}>
       <Header
-        iconenameMaterialUi={"attach-money"}
+        // iconenameMaterialUi={"attach-money"}
         title={"Budget"}
-        subTite={"Ajouter les Budgets"}
+        subTite={
+          "Un budget est une estimation des revenus et des dépenses sur une période donnée. Vous pouvez ajouter ou modifier, cela dependra de vos besoins."
+        }
       />
       <ScrollView
         showsVerticalScrollIndicator={false}

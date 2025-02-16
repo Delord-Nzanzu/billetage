@@ -10,6 +10,7 @@ const useDepense = () => {
   const [error, setError] = useState(false);
   const { db, isReady } = useDatabase();
   const { getTotalBudgetForCurrentMonth2 } = useBudget();
+  const [dataMonth, setMontantSelonLeMois] = useState([]);
 
   const createDepense = async ({
     montant,
@@ -242,6 +243,52 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
       });
   };
 
+  const getTotalBudgetSelonMois = async () => {
+    if (!db) return;
+
+    try {
+      const results = await db.getAllAsync(
+        `SELECT strftime('%m', date) AS mois, 
+                COALESCE(SUM(montant), 0) AS total_montant
+         FROM Depenses 
+         GROUP BY mois 
+         ORDER BY mois;`
+      );
+
+      // Tableau des mois avec valeurs par défaut à 0
+      const dataByMonth = Array(12).fill(0);
+
+      // Insérer les valeurs récupérées dans le tableau
+      results.forEach((row) => {
+        const monthIndex = parseInt(row.mois, 10) - 1; // Convertir '01' -> 0 (Janvier)
+        dataByMonth[monthIndex] = row.total_montant;
+      });
+
+      // console.log("📊 Données formatées pour LineChart :", dataByMonth);
+
+      setMontantSelonLeMois(dataByMonth); // Mettre à jour l'état avec les valeurs
+      return dataByMonth;
+    } catch (error) {
+      console.error(
+        "🚨 Erreur lors de la récupération des budgets mensuels :",
+        error
+      );
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    if (isReady) {
+      getTotalBudgetSelonMois();
+    }
+  }, [isReady]);
+
+  useEffect(() => {
+    if (isReady) {
+      getTotalBudgetSelonMois();
+    }
+  }, [isReady]);
+
   return {
     data,
     dataEl,
@@ -255,6 +302,8 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
     coutDepense,
     deleteDepense,
     updateDepense,
+    dataMonth,
+    getTotalBudgetSelonMois,
   };
 };
 

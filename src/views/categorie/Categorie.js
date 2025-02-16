@@ -50,10 +50,10 @@ const Categorie = () => {
         backgroundColor: "#fff",
       }}>
       <Header
-        iconenameMaterialUi={"file-present"}
+        // iconenameMaterialUi={"file-present"}
         title={"Catégories"}
         subTite={
-          "Les catégories représentent la liste de vos dépenses quotidiennes. (ex: transport, Unités, etc.)"
+          "Les catégories représentent la liste de vos dépenses quotidiennes. (ex: transport, Unités, etc.),Vous pouvez ajouter ou modifier, cela dependra de vos besoins."
         }
       />
       <ScrollView
