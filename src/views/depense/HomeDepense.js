@@ -53,7 +53,7 @@ const HomeDepense = () => {
         // iconenameMaterialUi={"home"}
         title={"Gestion de dépense"}
         subTite={
-          "Gerer vos depense quotidienne toute en vous assurent de l'evolution chaque fin du mois"
+          "Gérez vos dépenses quotidiennes tout en suivant leur évolution à la fin de chaque mois."
         }
       />
       <ScrollView
@@ -92,7 +92,7 @@ const HomeDepense = () => {
                 key={key}
                 style={{
                   padding: 10,
-                  margin: 5,
+                  margin: 1,
                   borderColor: e.colorContur,
                   borderWidth: 2,
                   borderRadius: 10,
