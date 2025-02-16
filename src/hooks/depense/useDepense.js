@@ -25,7 +25,8 @@ const useDepense = () => {
     if (montant > totalMontant.total_montant) {
       //creation de budget
       alert(
-        "🚨 Le montant de la depense est superieur au budget souscrit \n veillez soit augmenter votre budget ou soit equilibre le montant de la depense !"
+        `🚨Le montant de la dépense dépasse le budget souscrit.
+Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
       );
     } else {
       //passe la modification d la soustration du budget pour valider le depense
@@ -66,6 +67,45 @@ const useDepense = () => {
     }
   };
 
+  const deleteDepense = ({ id_depense, montant }) => {
+    if (!isReady || !db) return;
+
+    setLoading(true);
+    //passe la modification d la soustration du budget pour valider le depense
+    db.runAsync(
+      `UPDATE Budget
+               SET montant_initial = montant_initial + ?
+               WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now');`,
+      [montant]
+    )
+      .then(() => {
+        //maintant nous allons enregistrer
+        db.runAsync("DELETE FROM Depenses where id_depense=? ", [id_depense])
+          .then(({ rowsAffected, ke }) => {
+            alert("✅ Suppression reussie !");
+            getDepense()
+          })
+          .catch((error) => {
+            setError(true);
+            console.error("🚨 Erreur :", error);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              setLoading(false);
+            }, 2000);
+          });
+      })
+      .catch((error) => {
+        setError(true);
+        console.error("🚨 Erreur lors de la mise à jour :", error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      });
+  };
+
   const getDepense = () => {
     if (!isReady || !db) return;
 
@@ -100,7 +140,26 @@ const useDepense = () => {
       });
   };
 
-  
+  const coutDepense = () => {
+    if (!isReady || !db) return;
+
+    setLoading(true);
+
+    db.getFirstAsync("SELECT count(*) as total FROM Depenses;")
+      .then((categories) => {
+        // console.log("📌 Catégories récupérées :", categories?.total);
+        setDataEl(categories?.total);
+      })
+      .catch((error) => {
+        console.error("🚨 Erreur lors de la récupération :", error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+      });
+  };
+
   return {
     data,
     dataEl,
@@ -110,7 +169,9 @@ const useDepense = () => {
     createDepense,
     getDepense,
     isReady,
-    db
+    db,
+    coutDepense,
+    deleteDepense
   };
 };
 

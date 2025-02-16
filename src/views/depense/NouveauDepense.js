@@ -33,6 +33,9 @@ const NouveauDepense = () => {
     }),
     onSubmit: (e) => {
       console.log(selectCateg);
+      if (selectCateg === undefined) {
+        alert("🚨 La categorie est obligatoire !");
+      }
       createDepense({
         montant: e.montant,
         devise: selectedValue,

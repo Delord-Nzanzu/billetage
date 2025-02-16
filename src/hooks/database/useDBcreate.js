@@ -49,7 +49,7 @@ export default function useDatabase() {
       const database = await SQLite.openDatabaseAsync("bdg.db");
       setDb(database);
       setIsReady(true);
-      console.log("✅ Base de données initialisée !");
+      // console.log("✅ Base de données initialisée !");
     } catch (error) {
       console.error("🚨 Erreur d'initialisation de la BD :", error);
     }

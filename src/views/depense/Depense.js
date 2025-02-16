@@ -15,7 +15,7 @@ import AntDesing from "react-native-vector-icons/MaterialIcons";
 
 const Depense = () => {
   const nav = useNavigation();
-  const { isReady, getDepense, data, loading } = useDepense();
+  const { isReady, getDepense, data, loading, deleteDepense } = useDepense();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -32,6 +32,11 @@ const Depense = () => {
     }
   }, [isReady]);
 
+  const suppressionCateg = (e) => {
+    console.log("delete", e.id_depense);
+    deleteDepense({ id_depense: e.id_depense, montant: e.montant });
+  };
+
   return (
     <View
       style={{
@@ -41,7 +46,7 @@ const Depense = () => {
       <Header
         iconenameMaterialUi={"attach-money"}
         title={"Dépense"}
-        subTite={"Ajouter les Dépense"}
+        subTite={"Ajoutez et suivre vos dépenses en un clic"}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -226,7 +231,7 @@ const Depense = () => {
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        // onPress={() => suppressionBudget(e)}
+                        onPress={() => suppressionCateg(e)}
                         style={{
                           padding: 10,
                           backgroundColor: "red",

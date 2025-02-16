@@ -15,10 +15,12 @@ import ChartGraphic from "../../components/ChartGraphic";
 import { useNavigation } from "@react-navigation/native";
 import useCategories from "../../hooks/categorie/useCategories";
 import useBudget from "../../hooks/budget/useBudget";
+import useDepense from "../../hooks/depense/useDepense";
 
 const HomeDepense = () => {
   const { coutCategories, isReady, loading, dataEl } = useCategories();
   const { coutBudget, dataEl: datbugetCount } = useBudget();
+  const { dataEl: datDepense, coutDepense } = useDepense();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -26,6 +28,7 @@ const HomeDepense = () => {
     setTimeout(() => {
       coutCategories();
       coutBudget();
+      coutDepense();
       setRefreshing(false);
     }, 2000);
   };
@@ -34,6 +37,7 @@ const HomeDepense = () => {
     if (isReady) {
       coutCategories();
       coutBudget();
+      coutDepense();
     }
   }, [isReady]);
 
@@ -271,7 +275,19 @@ const HomeDepense = () => {
                     textAlign: "center",
                     marginTop: 10,
                   }}>
-                  300
+                  {loading === true ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontFamily: "monst-r",
+                          color: "#fff",
+                        }}>
+                        ...
+                      </Text>
+                    </View>
+                  ) : (
+                    datDepense
+                  )}
                 </Text>
               </View>
             </View>
