@@ -130,6 +130,9 @@ const Budget = () => {
             </View>
           ) : (
             data.map((e, key) => {
+              const montantBuget = new Intl.NumberFormat("de-DE").format(
+                e.montant_initial
+              );
               return (
                 <View
                   key={key}
@@ -159,7 +162,7 @@ const Budget = () => {
                             fontSize: 20,
                             marginTop: 10,
                           }}>
-                          {e.montant_initial}
+                          {montantBuget}
                         </Text>
                         <Text
                           style={{

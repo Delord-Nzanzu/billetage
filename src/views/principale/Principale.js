@@ -16,7 +16,7 @@ export default function Principale(props) {
       }}>
       <StatusBar translucent={true} backgroundColor="#040332" style="light" />
       <Header
-        iconenameMaterialUi={"attach-money"}
+        // iconenameMaterialUi={"attach-money"}
         title={"Gestion de dépense & Billetages"}
         subTite={
           "Cette application vous permet de gérer vos dépenses tout en facilitant la répartition d'un montant donné en fonction des billets disponibles."

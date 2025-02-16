@@ -1,7 +1,8 @@
 export const Data = [
   {
-    title: "Catégorie de la dépense",
-    subTitle: "Veillez configure ",
+    title: "Catégorie des dépense",
+    subTitle:
+      "Veillez configure toute les catégories possible qui peut liée aux dépense",
     icon: "file-present",
     link: "Categorie",
     colorContur: "#2a2670",
@@ -16,7 +17,7 @@ export const Data = [
   },
   {
     title: "Dépense",
-    subTitle: "Entre le depense ",
+    subTitle: "Entre toutes les dépenses possible quotidienne",
     link: "Depense",
     icon: "attach-money",
     colorContur: "#040332",

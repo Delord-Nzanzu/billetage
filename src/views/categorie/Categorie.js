@@ -15,7 +15,8 @@ import AntDesing from "react-native-vector-icons/MaterialIcons";
 
 const Categorie = () => {
   const nav = useNavigation();
-  const { getCategories, data, loading, deleteCategories,isReady } = useCategories();
+  const { getCategories, data, loading, deleteCategories, isReady } =
+    useCategories();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -52,7 +53,7 @@ const Categorie = () => {
         iconenameMaterialUi={"file-present"}
         title={"Catégories"}
         subTite={
-          "Les catégories sont de liste de vos depense quotidienne (ex: transport, Unites, etc.)"
+          "Les catégories représentent la liste de vos dépenses quotidiennes. (ex: transport, Unités, etc.)"
         }
       />
       <ScrollView

@@ -50,7 +50,7 @@ const HomeDepense = () => {
       }}>
       <StatusBar translucent={true} backgroundColor="#040332" style="light" />
       <Header
-        iconenameMaterialUi={"home"}
+        // iconenameMaterialUi={"home"}
         title={"Gestion de dépense"}
         subTite={
           "Gerer vos depense quotidienne toute en vous assurent de l'evolution chaque fin du mois"
