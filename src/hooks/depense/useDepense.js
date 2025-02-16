@@ -28,48 +28,41 @@ const useDepense = () => {
         "🚨 Le montant de la depense est superieur au budget souscrit \n veillez soit augmenter votre budget ou soit equilibre le montant de la depense !"
       );
     } else {
-      console.log(
-        `liste de produit : \n montant: ${montant}, 
-        devise: ${devise}, i
-        dcategorie: ${idcategorie}, 
-        description: ${description}, 
-        idBudget : ${totalMontant?.id_budget}`
-      );
-      //   //passe la modification d la soustration du budget pour valider le depense
-      //   db.runAsync(
-      //     `UPDATE Budget
-      //          SET montant_initial = montant_initial - ?
-      //          WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now');`,
-      //     [montant]
-      //   )
-      //     .then(() => {
-      //       //maintant nous allons enregistrer
-      //       db.runAsync(
-      //         "INSERT INTO Budget (montant_initial,devise,description) VALUES (?,?,?);",
-      //         [montant, devise, description]
-      //       )
-      //         .then(({ rowsAffected, ke }) => {
-      //           alert("✅ Budget ajoutée !");
-      //         })
-      //         .catch((error) => {
-      //           setError(true);
-      //           console.error("🚨 Erreur :", error);
-      //         })
-      //         .finally(() => {
-      //           setTimeout(() => {
-      //             setLoading(false);
-      //           }, 2000);
-      //         });
-      //     })
-      //     .catch((error) => {
-      //       setError(true);
-      //       console.error("🚨 Erreur lors de la mise à jour :", error);
-      //     })
-      //     .finally(() => {
-      //       setTimeout(() => {
-      //         setLoading(false);
-      //       }, 2000);
-      //     });
+      //passe la modification d la soustration du budget pour valider le depense
+      db.runAsync(
+        `UPDATE Budget
+               SET montant_initial = montant_initial - ?
+               WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now');`,
+        [montant]
+      )
+        .then(() => {
+          //maintant nous allons enregistrer
+          db.runAsync(
+            "INSERT INTO Depenses (id_budget,id_categorie,montant,description) VALUES (?,?,?,?);",
+            [totalMontant?.id_budget, idcategorie, montant, description]
+          )
+            .then(({ rowsAffected, ke }) => {
+              alert("✅ Depense ajoutée !");
+            })
+            .catch((error) => {
+              setError(true);
+              console.error("🚨 Erreur :", error);
+            })
+            .finally(() => {
+              setTimeout(() => {
+                setLoading(false);
+              }, 2000);
+            });
+        })
+        .catch((error) => {
+          setError(true);
+          console.error("🚨 Erreur lors de la mise à jour :", error);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        });
     }
   };
 
@@ -79,7 +72,7 @@ const useDepense = () => {
     loading,
     error,
     setError,
-    createDepense
+    createDepense,
   };
 };
 

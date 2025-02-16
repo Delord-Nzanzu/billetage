@@ -9,7 +9,7 @@ export default function useDatabase() {
 
   const initialisationBD = async () => {
     try {
-      const database = await SQLite.openDatabaseAsync("bdgestions.db");
+      const database = await SQLite.openDatabaseAsync("bdg.db");
       await database.execAsync(`
         CREATE TABLE IF NOT EXISTS Budget (
           id_budget INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,7 +30,7 @@ export default function useDatabase() {
           id_categorie INTEGER,
           montant REAL NOT NULL,
           description TEXT,
-          date TEXT NOT NULL,
+          date TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now')),
           FOREIGN KEY (id_budget) REFERENCES Budget(id_budget),
           FOREIGN KEY (id_categorie) REFERENCES Categorie_de_Depense(id_categorie)
         );
@@ -46,10 +46,10 @@ export default function useDatabase() {
   };
   const initDB = async () => {
     try {
-      const database = await SQLite.openDatabaseAsync("bdgestions.db");
+      const database = await SQLite.openDatabaseAsync("bdg.db");
       setDb(database);
       setIsReady(true);
-      // console.log("✅ Base de données initialisée !");
+      console.log("✅ Base de données initialisée !");
     } catch (error) {
       console.error("🚨 Erreur d'initialisation de la BD :", error);
     }
