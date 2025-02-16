@@ -8,12 +8,15 @@ import useCategories from "../../hooks/categorie/useCategories";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import useDepense from "../../hooks/depense/useDepense";
+import { useRoute } from "@react-navigation/native";
 
 const NouveauDepense = () => {
+  const params = useRoute();
+  const { data } = params.params;
   const [selectedValue, setSelectedValue] = useState("Franc");
   const { datListeCombo, getCategories, isReady } = useCategories();
   const [selectCateg, setSelectCat] = useState();
-  const { createDepense } = useDepense();
+  const { createDepense, updateDepense } = useDepense();
 
   useEffect(() => {
     if (isReady) {
@@ -24,8 +27,8 @@ const NouveauDepense = () => {
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      montant: "",
-      motif: "",
+      montant: parseFloat(data?.montant) ? parseFloat(data?.montant) : "",
+      motif: data?.description ? data?.description : "",
     },
     validationSchema: yup.object().shape({
       montant: yup.string().required("Les champs est obligatoire"),
@@ -36,12 +39,24 @@ const NouveauDepense = () => {
       if (selectCateg === undefined) {
         alert("🚨 La categorie est obligatoire !");
       }
-      createDepense({
-        montant: e.montant,
-        devise: selectedValue,
-        description: e.motif,
-        idcategorie: selectCateg,
-      });
+      if (data !== null) {
+        console.log("Modification");
+        updateDepense({
+          description: e.motif,
+          montant: e.montant,
+          devise: selectedValue,
+          id_depense: data?.id_depense,
+          idcategorie: selectCateg,
+          montantDepenseAvant: data?.montant,
+        });
+      } else {
+        createDepense({
+          montant: e.montant,
+          devise: selectedValue,
+          description: e.motif,
+          idcategorie: selectCateg,
+        });
+      }
     },
   });
 
@@ -160,7 +175,7 @@ const NouveauDepense = () => {
           />
         </View>
         <Boutons
-          text={"Enregistrer"}
+          text={data !== null ? "Modification" : "Enregistrer"}
           backgroundColor={"#040332"}
           colorText={"#FFF"}
           iconname={"addfile"}

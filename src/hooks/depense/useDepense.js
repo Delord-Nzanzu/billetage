@@ -67,6 +67,88 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
     }
   };
 
+  const updateDepense = async ({
+    montant,
+    devise,
+    description,
+    idcategorie,
+    id_depense,
+    montantDepenseAvant,
+  }) => {
+    const totalMontant = await getTotalBudgetForCurrentMonth2();
+
+    if (!isReady || !db) return;
+
+    setLoading(true);
+    if (montant > totalMontant.total_montant) {
+      //creation de budget
+      alert(
+        `🚨Le montant de la dépense dépasse le budget souscrit.
+Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
+      );
+    } else {
+      db.runAsync(
+        `UPDATE Budget
+                     SET montant_initial = montant_initial + ?
+                     WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now');`,
+        [montantDepenseAvant]
+      )
+        .then(() => {
+          //maintant nous allons supprimer dans le budget
+          db.runAsync(
+            `UPDATE Budget
+                         SET montant_initial = montant_initial - ?
+                         WHERE strftime('%Y-%m', date_budget) = strftime('%Y-%m', 'now');`,
+            [montant]
+          )
+            .then(() => {
+              //maintant nous modifier dans le depense
+              db.runAsync(
+                "UPDATE Depenses SET  id_budget=?,id_categorie=?,montant=?,description=? where id_depense=? ",
+                [
+                  totalMontant?.id_budget,
+                  idcategorie,
+                  montant,
+                  description,
+                  id_depense,
+                ]
+              )
+                .then(({ rowsAffected, ke }) => {
+                  alert("✅ Modification reussie !");
+                  getDepense();
+                })
+                .catch((error) => {
+                  setError(true);
+                  console.error("🚨 Erreur :", error);
+                })
+                .finally(() => {
+                  setTimeout(() => {
+                    setLoading(false);
+                  }, 2000);
+                });
+            })
+            .catch((error) => {
+              setError(true);
+              console.error("🚨 Erreur lors de la mise à jour :", error);
+            })
+            .finally(() => {
+              setTimeout(() => {
+                setLoading(false);
+              }, 2000);
+            });
+        })
+        .catch((error) => {
+          setError(true);
+          console.error("🚨 Erreur lors de la mise à jour :", error);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        });
+    }
+  };
+
   const deleteDepense = ({ id_depense, montant }) => {
     if (!isReady || !db) return;
 
@@ -79,11 +161,11 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
       [montant]
     )
       .then(() => {
-        //maintant nous allons enregistrer
+        //maintant nous allons supprimer
         db.runAsync("DELETE FROM Depenses where id_depense=? ", [id_depense])
           .then(({ rowsAffected, ke }) => {
             alert("✅ Suppression reussie !");
-            getDepense()
+            getDepense();
           })
           .catch((error) => {
             setError(true);
@@ -171,7 +253,8 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
     isReady,
     db,
     coutDepense,
-    deleteDepense
+    deleteDepense,
+    updateDepense,
   };
 };
 

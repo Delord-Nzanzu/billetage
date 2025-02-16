@@ -37,6 +37,10 @@ const Depense = () => {
     deleteDepense({ id_depense: e.id_depense, montant: e.montant });
   };
 
+  const gotUpdate = (e) => {
+    nav.navigate("NouveauDepense", { data: e });
+  };
+
   return (
     <View
       style={{
@@ -214,7 +218,7 @@ const Depense = () => {
                         flexDirection: "row",
                       }}>
                       <TouchableOpacity
-                        // onPress={() => gotUpdate(e)}
+                        onPress={() => gotUpdate(e)}
                         style={{
                           padding: 10,
                           backgroundColor: "#2a2670",
@@ -263,6 +267,7 @@ const Depense = () => {
                         fontFamily: "monst-i",
                         fontSize: 20,
                         marginTop: 10,
+                        color:"#A52A2A"
                       }}>
                       Solde Mensuel {montantRestante}
                     </Text>
@@ -273,6 +278,7 @@ const Depense = () => {
                         fontSize: 20,
                         marginTop: 10,
                         marginLeft: 2,
+                        color:"#A52A2A"
                       }}>
                       {e.devise}
                     </Text>
