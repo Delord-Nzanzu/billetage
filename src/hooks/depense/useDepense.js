@@ -1,5 +1,5 @@
 import { View, Text, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useBudget from "../budget/useBudget";
 import useDatabase from "../database/useDBcreate";
 
@@ -66,6 +66,41 @@ const useDepense = () => {
     }
   };
 
+  const getDepense = () => {
+    if (!isReady || !db) return;
+
+    setLoading(true);
+
+    db.getAllAsync(
+      `
+      SELECT Depenses.*, 
+             Budget.montant_initial, 
+             Budget.devise, 
+             Budget.date_budget, 
+             Categorie_de_Depense.nom AS categorie_nom 
+      FROM Depenses 
+      INNER JOIN Budget ON Depenses.id_budget = Budget.id_budget 
+      INNER JOIN Categorie_de_Depense ON Depenses.id_categorie = Categorie_de_Depense.id_categorie;
+    `
+    )
+      .then((result) => {
+        // console.log("📌 Dépenses récupérées :", result);
+        setData(result);
+      })
+      .catch((error) => {
+        console.error(
+          "🚨 Erreur lors de la récupération des dépenses :",
+          error
+        );
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 5000); // Réduction du délai pour une meilleure UX
+      });
+  };
+
+  
   return {
     data,
     dataEl,
@@ -73,6 +108,9 @@ const useDepense = () => {
     error,
     setError,
     createDepense,
+    getDepense,
+    isReady,
+    db
   };
 };
 
