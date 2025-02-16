@@ -8,6 +8,7 @@ const useCategories = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { db, isReady, initDB } = useDatabase();
+  const [datListeCombo, setDataTypeCombo]=useState([])
 
   //   useEffect(() => {
   //     initDB();
@@ -94,6 +95,12 @@ const useCategories = () => {
     db.getAllAsync("SELECT * FROM Categorie_de_Depense;")
       .then((categories) => {
         // console.log("📌 Catégories récupérées :", categories);
+        let item=categories.map((ex)=>{
+          return{
+             key: ex.id_categorie, value: ex.nom
+          }
+        })
+        setDataTypeCombo(item)
         setData(categories);
       })
       .catch((error) => {
@@ -143,6 +150,7 @@ const useCategories = () => {
     isReady,
     coutCategories,
     dataEl,
+    datListeCombo
   };
 };
 

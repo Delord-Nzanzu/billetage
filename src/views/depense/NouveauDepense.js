@@ -1,11 +1,39 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextInputs from "../../components/TextInputs";
 import { CheckBox, Divider } from "react-native-elements";
 import Boutons from "../../components/Buttons";
+import SelectNonMultiple from "../../components/SelectNonMultiple";
+import useCategories from "../../hooks/categorie/useCategories";
+import * as yup from "yup";
+import { useFormik } from "formik";
 
 const NouveauDepense = () => {
   const [selectedValue, setSelectedValue] = useState("Franc");
+  const { datListeCombo, getCategories, isReady } = useCategories();
+  const [selectCateg, setSelectCat] = useState();
+
+  useEffect(() => {
+    if (isReady) {
+      getCategories();
+    }
+  }, [isReady]);
+
+  const validation = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      montant: "",
+      motif: "",
+    },
+    validationSchema: yup.object().shape({
+      montant: yup.string().required("Les champs est obligatoire"),
+      motif: yup.string().required("Les champs est obligatoire"),
+    }),
+    onSubmit: (e) => {
+      console.log(selectCateg);
+    },
+  });
+
   return (
     <View
       style={{
@@ -47,17 +75,17 @@ const NouveauDepense = () => {
           placeholder={"ex: 50$, 50000FC"}
           keyboardType={"numeric"}
           // // id={"montant"}
-          // value={Validation.values.montant}
-          // onChange={Validation.handleChange("montant")}
-          // onBlue={Validation.handleBlur("montant")}
-          // error={
-          //   Validation.errors.montant && Validation.touched.montant && true
-          // }
-          // texterror={
-          //   Validation.errors.montant &&
-          //   Validation.touched.montant &&
-          //   Validation.errors.montant
-          // }
+          value={validation.values.montant}
+          onChange={validation.handleChange("montant")}
+          onBlue={validation.handleBlur("montant")}
+          error={
+            validation.errors.montant && validation.touched.montant && true
+          }
+          texterror={
+            validation.errors.montant &&
+            validation.touched.montant &&
+            validation.errors.montant
+          }
         />
         <View
           style={{
@@ -88,6 +116,19 @@ const NouveauDepense = () => {
             </View>
           </View>
         </View>
+
+        <View
+          style={{
+            marginTop: 10,
+          }}>
+          <SelectNonMultiple
+            label={"Categories"}
+            data={datListeCombo}
+            placeholder={"Categories"}
+            setSelected={(e) => setSelectCat(e)}
+          />
+        </View>
+
         <View>
           <TextInputs
             label={"Motif de la Dépense"}
@@ -96,17 +137,15 @@ const NouveauDepense = () => {
             placeholder={"ex: Achat des unites"}
             //   keyboardType={"numeric"}
             // // id={"montant"}
-            // value={Validation.values.montant}
-            // onChange={Validation.handleChange("montant")}
-            // onBlue={Validation.handleBlur("montant")}
-            // error={
-            //   Validation.errors.montant && Validation.touched.montant && true
-            // }
-            // texterror={
-            //   Validation.errors.montant &&
-            //   Validation.touched.montant &&
-            //   Validation.errors.montant
-            // }
+            value={validation.values.motif}
+            onChange={validation.handleChange("motif")}
+            onBlue={validation.handleBlur("motif")}
+            error={validation.errors.motif && validation.touched.motif && true}
+            texterror={
+              validation.errors.motif &&
+              validation.touched.motif &&
+              validation.errors.motif
+            }
           />
         </View>
         <Boutons
@@ -116,7 +155,7 @@ const NouveauDepense = () => {
           iconname={"addfile"}
           colorIcon={"#fff"}
           //   width={"30%"}
-          //   onPress={() => nav.navigate("NouveauCat")}
+          onPress={validation.handleSubmit}
         />
       </View>
     </View>
