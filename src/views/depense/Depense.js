@@ -71,7 +71,7 @@ const Depense = () => {
             iconname={"arrowright"}
             colorIcon={"#fff"}
             width={"30%"}
-            onPress={() => nav.navigate("NouveauDepense")}
+            onPress={() => nav.navigate("NouveauDepense",{ data: null })}
           />
         </View>
         <View

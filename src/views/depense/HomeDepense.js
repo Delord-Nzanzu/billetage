@@ -16,11 +16,17 @@ import { useNavigation } from "@react-navigation/native";
 import useCategories from "../../hooks/categorie/useCategories";
 import useBudget from "../../hooks/budget/useBudget";
 import useDepense from "../../hooks/depense/useDepense";
+import BarChartGraphic from "../../components/BarChartGraphic";
 
 const HomeDepense = () => {
   const { coutCategories, isReady, loading, dataEl } = useCategories();
   const { coutBudget, dataEl: datbugetCount } = useBudget();
-  const { dataEl: datDepense, coutDepense } = useDepense();
+  const {
+    dataEl: datDepense,
+    coutDepense,
+    getTotalBudgetSelonMois,
+    getTotalSelonCategorie,
+  } = useDepense();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -29,6 +35,8 @@ const HomeDepense = () => {
       coutCategories();
       coutBudget();
       coutDepense();
+      getTotalBudgetSelonMois();
+      getTotalSelonCategorie();
       setRefreshing(false);
     }, 2000);
   };
@@ -297,6 +305,13 @@ const HomeDepense = () => {
               marginLeft: -20,
             }}>
             <ChartGraphic />
+          </View>
+          <View
+            style={{
+              marginLeft: -20,
+              marginTop: 10,
+            }}>
+            <BarChartGraphic />
           </View>
         </View>
       </ScrollView>

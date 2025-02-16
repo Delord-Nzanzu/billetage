@@ -11,6 +11,8 @@ const useDepense = () => {
   const { db, isReady } = useDatabase();
   const { getTotalBudgetForCurrentMonth2 } = useBudget();
   const [dataMonth, setMontantSelonLeMois] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [montants, setMontants] = useState([]);
 
   const createDepense = async ({
     montant,
@@ -277,6 +279,36 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
     }
   };
 
+  const getTotalSelonCategorie = async () => {
+    if (!db) return;
+
+    try {
+      const results = await db.getAllAsync(
+        `SELECT c.nom AS categorie, 
+              COALESCE(SUM(d.montant), 0) AS total_montant
+          FROM Categorie_de_Depense c
+          LEFT JOIN Depenses d ON c.id_categorie = d.id_categorie
+          GROUP BY c.nom;
+`
+      );
+      if (results && results.length > 0) {
+        setCategories(results.map((item) => item.categorie));
+        setMontants(results.map((item) => item.total_montant));
+      } else {
+        setCategories([]);
+        setMontants([]);
+      }
+
+      return null;
+    } catch (error) {
+      console.error(
+        "🚨 Erreur lors de la récupération des budgets mensuels :",
+        error
+      );
+      return null;
+    }
+  };
+
   useEffect(() => {
     if (isReady) {
       getTotalBudgetSelonMois();
@@ -286,6 +318,7 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
   useEffect(() => {
     if (isReady) {
       getTotalBudgetSelonMois();
+      getTotalSelonCategorie();
     }
   }, [isReady]);
 
@@ -304,6 +337,9 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
     updateDepense,
     dataMonth,
     getTotalBudgetSelonMois,
+    categories,
+    montants,
+    getTotalSelonCategorie
   };
 };
 
