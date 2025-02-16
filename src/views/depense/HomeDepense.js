@@ -46,6 +46,8 @@ const HomeDepense = () => {
       coutCategories();
       coutBudget();
       coutDepense();
+      getTotalBudgetSelonMois();
+      getTotalSelonCategorie();
     }
   }, [isReady]);
 
