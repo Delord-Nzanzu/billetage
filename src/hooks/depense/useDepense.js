@@ -221,7 +221,7 @@ Veuillez soit augmenter votre budget, soit ajuster le montant de la dépense.!`
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 5000); // Réduction du délai pour une meilleure UX
+        }, 2000); // Réduction du délai pour une meilleure UX
       });
   };
 

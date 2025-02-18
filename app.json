@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Gestion De Dudget",
-    "slug": "Gestion De Dudget",
+    "slug": "GestionDeDudget",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -84,7 +84,9 @@ const NouveauDepense = () => {
             fontSize: 16,
             color: "gray",
           }}>
-          Ajouter les Dépenses
+          Ajoutez les dépenses quotidiennes pour suivre de près ce qui consomme
+          le plus de budget, afin de mieux le gérer et d’adopter les bonnes
+          décisions.
         </Text>
         <Divider
           style={{

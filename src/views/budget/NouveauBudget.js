@@ -70,7 +70,8 @@ const NouveauBudget = () => {
             fontSize: 16,
             color: "gray",
           }}>
-          Ajouter le budget pour chaque mois
+          Le budget ajouté sera alloué chaque mois. À chaque fois que vous
+          ajoutez un montant, il sera intégré au budget du mois en cours.
         </Text>
         <Divider
           style={{
