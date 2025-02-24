@@ -1,23 +1,22 @@
 {
-    "cli": {
-      "version": ">= 10.0.0"
+  "cli": {
+    "version": ">= 15.0.10"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
     },
-    "build": {
-      "development": {
-        "developmentClient": true,
-        "distribution": "internal"
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
       },
-      "preview": {
-        "distribution": "internal",
-        "android": {
-          "buildType": "apk"
-        },
-        "ios": {}
-      },
-      "production": {}
+      "ios": {}
     },
-    "submit": {
-      "production": {}
-    }
+    "production": {}
+  },
+  "submit": {
+    "production": {}
   }
-  
+}
